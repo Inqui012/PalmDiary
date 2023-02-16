@@ -1,0 +1,86 @@
+/* bootstrap 5 override */
+.btn {border: none; background-color: transparent; padding: 0; box-shadow: none; transition: none; border-radius: 8px; line-height: 1.5;}
+.btn.btn-primary {background-color: #8A8CD9; color: #ffffff; text-align: center; letter-spacing: 0.1em;}
+.btn.btn-primary:hover,
+.btn.btn-primary:active {background-color: #45479C;}
+.input {width: 100%; display: block; border: 1px solid #8C8C8C; padding: 20px 30px; border-radius: 8px;}
+.offcanvas-body {padding: 0; overflow-y: unset;}
+.offcanvas-header {display: none; height: 75px;}
+.navbar {padding: 0; width: 80%; margin: 0 auto; max-width: 1920px;}
+
+/* custom class */
+::placeholder {color: #8C8C8C;}
+.section {width: 80%; max-width: 1920px; margin: 25px auto; min-height: calc(100vh - 125px);}
+.bgc {background-color: #F7F9FB;}
+.icon-arrowDrop {transition: transform 0.5s ease-in-out;}
+.btn.btn-reset {border: 1px solid #8C8C8C; background-color: #ffffff;}
+.btn.btn-reset:hover,
+.btn.btn-reset:active {background-color: #8C8C8C; color: #ffffff;}
+.h75p {height: 75px;}
+.btn-visibility {visibility: hidden;}
+
+/* 모달 */
+.bgc.modal-box {border-radius: 8px; width: 100%; max-width: 550px; padding: 100px 50px;}
+.bgc.modal-box h3 {font-size: 32px; font-weight: 500; line-height: 1.5;}
+.bgc.modal-box h3 + span {color: #8C8C8C; margin-top: 10px; line-height: 1.5;}
+.input + .txt-err {color: #FF7E47; position: absolute; top: 25px; right: 30px; margin: 0; opacity: 0.5;}
+.input:focus {outline-color: #8A8CD9;}
+.input.error {border-color: #FF7E47;}
+.input.error:focus {outline-color: #FF7E47;}
+.input.narrow {padding: 10px 20px;}
+
+.form {width: 100%; max-width: 500px;}
+.form > * {margin-top: 20px; position: relative;}
+.form label {cursor: pointer;}
+
+.btn.w-100 {padding: 20px 0;}
+.btn.btn-txt {color: #FF7E47; margin-left: 10px;}
+.btn.align-row {width: calc(50% - 5px); padding: 10px 0;}
+
+#regist_pwConf ~ svg {position: absolute; top: 15px; right: 30px; display: none;}
+
+/* 헤더 */
+.navbar > ul {flex-direction: row;}
+
+/* 헤더 오프캔버스 */
+.btn.btn-openCanvas {display: none; height: 75px;}
+.nav-item a {padding: 0 20px; height: 75px; display: flex; align-items: center; box-sizing: border-box;}
+.nav-item a:hover {box-shadow: inset 0 -5px 0 #8A8CD9;}
+.nav-item a svg {display: block;}
+.offcanvas-body span {display: none;}
+.offcanvas.offcanvas-mod{transform: none; visibility: visible; position: relative; flex-direction: row; border-left: none; width: 100%; padding: 0; max-width: 1920px;}
+
+/* 헤더 드롭다운 메뉴 */
+.btn-toggleDrop {align-items: center; justify-content: center; position: relative; padding: 0; border-radius: 0;}
+.btn-toggleDrop img.userProf-img {width: 40px; height: 40px; border-radius: 100%;}
+.btn-toggleDrop .userProf-img {transition: transform ease 0.5s; transform: scale(1);}
+.btn-toggleDrop:hover .userProf-img {transform: scale(1.05);}
+.dropList {width: 160px; overflow: hidden; height: 0; transition: height 0.5s ease-in-out; position: absolute; top: 75px; left: 0; background-color: #F7F9FB; box-shadow: 0 0 1px 0px #45479c}
+.dropList .dropList-item .btn {width: 100%; padding: 20px 0; border-radius: 0;}
+.dropList .dropList-item .btn:hover {box-shadow: inset 10px 0 0 #8a8cd9}
+
+@media screen and (max-width: 991.98px) {
+    /* custom class */
+    .navbar {width: 100%; margin: 0 auto;}
+    .navbar > ul {flex-direction: column; width: 100%;}
+
+    /* 헤더 오프캔버스 */
+    .btn.btn-openCanvas {display: block; text-align: right; width: 100%;}
+    .btn.btn-close {width: fit-content;}
+    .offcanvas.offcanvas-mod{transform: translateX(100%); position: fixed; flex-direction: column; border-left: var(--bs-offcanvas-border-width) solid var(--bs-offcanvas-border-color); width: var(--bs-offcanvas-width);}
+    .offcanvas-header {display: flex;}
+    .nav-item a {padding: 0 35px; max-width: 400px; width: 100%;}
+    .nav-item a:hover {box-shadow: inset 10px 0 0 #8a8cd9}
+    .offcanvas-mod span {display: block; padding: 0 15px;}
+    .offcanvas-mod svg:not(.icon-arrowDrop) {display: none;}
+    
+    /* 헤더 드롭다운 메뉴 */
+    .dropdown {width: 100%;}
+    .btn.btn-toggleDrop {padding: 0 35px; justify-content: flex-start;}
+    .btn-toggleDrop.clicked {box-shadow: inset 10px 0 0 #8a8cd9}
+    .btn-toggleDrop:hover {box-shadow: inset 10px 0 0 #8a8cd9}
+    .btn-toggleDrop img.userProf-img {display: none;}
+    .dropList {width: 100%;}
+    .dropList .dropList-item .btn {padding: 20px 85px; width: auto;}
+
+}

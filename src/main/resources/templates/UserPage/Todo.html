@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{/Layout/index}"
+      th:with="UserRegistDto = ${UserRegistDto}, isMain = false, User = ${User}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PalmDiary</title>
+    <script th:inline="javascript">
+    </script>
+</head>
+<body>
+    <section class="section page-accn"  id="section" layout:fragment="section">
+    Todo
+    </section>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../css/posts.css">
+</head>
+<body>
+    <div class="post-view post-add" th:fragment="post-addEdit">
+        <form class="d-flex form flex-column align-items-center justify-content-center" enctype="multipart/form-data">
+            <input type="hidden" id="postId">
+            <input class="input" type="text" id="postName" placeholder="제목을 입력해 주세요">
+            <textarea class="input" id="postContent" cols="30" rows="10" placeholder="내용을 입력해 주세요"></textarea>
+            <div class="d-flex w-100" id="preview"></div>
+            <div class="d-flex align-items-center w-100">
+                <input type="file"class="form-control input" id="inputGroupFile" accept="image/*">
+                <label class="btn btn-primary" for="inputGroupFile">파일 선택</label>
+            </div>
+            <div class="d-flex align-items-center justify-content-end w-100">
+                <button type="reset" class="btn btn-reset">취소</button>
+                <button type="submit" class="btn btn-primary">업로드</button>
+            </div>
+        </form>
+    </div>
+    <div class="post-view" th:fragment="post-view">
+        <ul class="post d-flex flex-column">
+            <li>
+                <div class="title-box d-flex align-items-center">
+                    <img class="user-img" src="https://1.bp.blogspot.com/-3GUksHO3Sgc/VCIkF-PenoI/AAAAAAAAmjk/by_uxGIO7hU/s800/monster02.png" alt="">
+                    <strong>title</strong>
+                    <span>date</span>
+                </div>
+                <article>
+                    content
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="..." class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="..." class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="..." class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </article>
+                <div class="btn-group d-flex align-items-center justify-content-between">
+                    <button class="btn d-flex comment align-items-center" id="toggleComment">
+                        <svg class="icon-arrowDrop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.07459 15.4419C6.80847 15.1979 6.80847 14.8021 7.07459 14.5581L11.5625 10.4419C11.8286 10.1979 11.8286 9.80214 11.5625 9.55806L7.07459 5.44194C6.80847 5.19786 6.80847 4.80214 7.07459 4.55806C7.34072 4.31398 7.77219 4.31398 8.03831 4.55806L12.5262 8.67418C13.3246 9.40641 13.3246 10.5936 12.5262 11.3258L8.03831 15.4419C7.77219 15.686 7.34072 15.686 7.07459 15.4419Z" fill="#4A4B78"/>
+                        </svg>
+                        답글보기
+                    </button>
+                    <div>
+                        <button class="btn likes">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5468 3.05007C11.5468 3.05007 10.6038 3.55223 10 4.36298C10 4.36298 9.39621 3.55223 8.45318 3.05007C8.45318 3.05007 6.97399 2.26241 5.33071 2.59107C5.33071 2.59107 3.68742 2.91972 2.62496 4.21571C2.62496 4.21571 1.5625 5.51171 1.5625 7.18754C1.5625 7.18754 1.5625 10.7862 5.67565 14.488C5.67565 14.488 6.92897 15.616 8.43022 16.6269C8.43022 16.6269 9.18394 17.1344 9.69462 17.4204C9.88435 17.5266 10.1157 17.5266 10.3055 17.4203C10.3055 17.4203 10.8182 17.1331 11.5723 16.6251C11.5723 16.6251 13.0736 15.614 14.3266 14.486C14.3266 14.486 18.4375 10.7851 18.4375 7.18754C18.4375 7.18754 18.4375 5.51171 17.375 4.21571C17.375 4.21571 16.3126 2.91972 14.6693 2.59107C14.6693 2.59107 13.026 2.26241 11.5468 3.05007ZM7.86567 4.15339C7.86567 4.15339 8.95041 4.73101 9.42308 5.86542C9.48648 6.0176 9.60744 6.13856 9.75966 6.20198L9.76182 6.20287C9.91425 6.26564 10.0855 6.26573 10.238 6.20296L10.2404 6.20196C10.3926 6.13856 10.5135 6.0176 10.5769 5.86542C10.5769 5.86542 11.0496 4.73101 12.1343 4.15339C12.1343 4.15339 13.2191 3.57578 14.4242 3.81679C14.4242 3.81679 15.6292 4.05781 16.4084 5.0082C16.4084 5.0082 17.1875 5.95859 17.1875 7.18754C17.1875 7.18754 17.1875 10.2285 13.4903 13.557C13.4903 13.557 12.3025 14.6263 10.8741 15.5884C10.8741 15.5884 10.3778 15.9226 9.99998 16.1513C9.99998 16.1513 9.62365 15.9235 9.12837 15.59C9.12837 15.59 7.69993 14.6282 6.51185 13.5589C6.51185 13.5589 2.8125 10.2295 2.8125 7.18754C2.8125 7.18754 2.8125 5.95859 3.59164 5.0082C3.59164 5.0082 4.37077 4.05781 5.57585 3.81679C5.57585 3.81679 6.78093 3.57578 7.86567 4.15339Z" fill="black"/>
+                            </svg>
+                            heart
+                        </button>
+                        <button class="btn bookmarks">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.625 3.75V17.5C15.625 17.8452 15.3452 18.125 15 18.125C14.8829 18.125 14.7681 18.0921 14.6688 18.03L10 15.112L5.33125 18.03C5.03854 18.2129 4.65295 18.124 4.47 17.8312C4.40792 17.7319 4.375 17.6171 4.375 17.5V3.75C4.375 3.75 4.375 3.23223 4.74112 2.86612C4.74112 2.86612 5.10723 2.5 5.625 2.5H14.375C14.375 2.5 14.8928 2.5 15.2589 2.86612C15.2589 2.86612 15.625 3.23223 15.625 3.75ZM14.375 3.75H5.625V16.3723L9.66875 13.845C9.87142 13.7183 10.1286 13.7183 10.3312 13.845L14.375 16.3723V3.75Z" fill="black"/>
+                            </svg>
+                            bookmark
+                        </button>
+                        <button class="btn addComments">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0781 18.3643L13.5523 16.253L13.5488 16.25H3.125C3.125 16.25 2.60723 16.25 2.24112 15.8839C2.24112 15.8839 1.875 15.5178 1.875 15V5C1.875 5 1.875 4.48223 2.24112 4.11612C2.24112 4.11612 2.60723 3.75 3.125 3.75H16.875C16.875 3.75 17.3928 3.75 17.7589 4.11612C17.7589 4.11612 18.125 4.48223 18.125 5V17.4062C18.125 17.4062 18.1221 17.773 17.9264 18.0774C17.9264 18.0774 17.7307 18.3817 17.4027 18.5345C17.4027 18.5345 17.0747 18.6872 16.7158 18.6411C16.7158 18.6411 16.3569 18.595 16.0781 18.3643ZM13.5548 15C13.5548 15 14.0114 15.0001 14.3574 15.2968L16.875 17.4013V5H3.125V15H13.5548Z" fill="black"/>
+                                <path d="M9.0625 10C9.0625 10.5178 9.48227 10.9375 10 10.9375C10.5177 10.9375 10.9375 10.5178 10.9375 10C10.9375 9.48223 10.5177 9.0625 10 9.0625C9.48227 9.0625 9.0625 9.48223 9.0625 10Z" fill="black"/>
+                                <path d="M12.8125 10C12.8125 10.5178 13.2323 10.9375 13.75 10.9375C14.2677 10.9375 14.6875 10.5178 14.6875 10C14.6875 9.48223 14.2677 9.0625 13.75 9.0625C13.2323 9.0625 12.8125 9.48223 12.8125 10Z" fill="black"/>
+                                <path d="M5.3125 10C5.3125 10.5178 5.73227 10.9375 6.25 10.9375C6.76773 10.9375 7.1875 10.5178 7.1875 10C7.1875 9.48223 6.76773 9.0625 6.25 9.0625C5.73227 9.0625 5.3125 9.48223 5.3125 10Z" fill="black"/>
+                            </svg>
+                            addcomment
+                        </button>
+                        <button class="btn editPost">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.4953 7.76352L7.94194 17.3169C7.82473 17.4341 7.66576 17.4999 7.5 17.4999H3.75C3.75 17.4999 3.23223 17.4999 2.86612 17.1338C2.86612 17.1338 2.5 16.7677 2.5 16.2499L2.5 12.7577C2.5 12.7577 2.49914 12.5125 2.59314 12.2836C2.59314 12.2836 2.68714 12.0548 2.86165 11.8794L12.2377 2.5033C12.2377 2.5033 12.4106 2.32777 12.6422 2.23078C12.6422 2.23078 12.8739 2.13379 13.125 2.13379C13.125 2.13379 13.3761 2.13379 13.6078 2.23078C13.6078 2.23078 13.8394 2.32777 14.0156 2.5067L17.4966 5.98768C17.4966 5.98768 17.6722 6.16052 17.7692 6.39216C17.7692 6.39216 17.8661 6.62381 17.8661 6.87493C17.8661 6.87493 17.8661 7.12606 17.7692 7.3577C17.7692 7.3577 17.6731 7.58713 17.4966 7.76219L17.4953 7.76352ZM16.6161 6.87493L16.6127 6.87156L13.125 3.38379L13.1216 3.38719L3.75 12.7588V16.2499H7.24112L16.6127 6.8783L16.6161 6.87493Z" fill="black"/>
+                                <path d="M16.875 16.25H7.49999C7.15481 16.25 6.87499 16.5298 6.87499 16.875C6.87499 17.2202 7.15482 17.4999 7.5 17.4999L16.875 17.5C17.2202 17.5 17.5 17.2202 17.5 16.875C17.5 16.5298 17.2202 16.25 16.875 16.25Z" fill="black"/>
+                                <path d="M14.5577 9.81662C14.6749 9.93383 14.8342 10 15 10C15.1658 10 15.3247 9.93415 15.4419 9.81694C15.5591 9.69973 15.625 9.54076 15.625 9.375C15.625 9.20924 15.5591 9.05027 15.4419 8.93306L11.067 4.55813C10.9497 4.44085 10.7908 4.375 10.625 4.375C10.4592 4.375 10.3003 4.44085 10.1831 4.55806C10.0658 4.67527 9.99999 4.83424 9.99999 5C9.99999 5.16576 10.0658 5.32473 10.1831 5.44194L14.5577 9.81662Z" fill="black"/>
+                            </svg>
+                            edit
+                        </button>
+                    </div>
+                </div>
+                <ul class="comments">
+                    <li class="d-flex flex-column align-items-end">
+                        <div class="title-box d-flex align-items-center">
+                            <img class="user-img" src="https://4.bp.blogspot.com/-CfSVFwYqpkQ/VCIkGwECcHI/AAAAAAAAmjs/Iksw2cv-43s/s800/monster04.png" alt="">
+                            <strong>title</strong>
+                            <span>date</span>
+                        </div>
+                        <article>
+                            content
+                        </article>
+                        <button class="btn addComments">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0781 18.3643L13.5523 16.253L13.5488 16.25H3.125C3.125 16.25 2.60723 16.25 2.24112 15.8839C2.24112 15.8839 1.875 15.5178 1.875 15V5C1.875 5 1.875 4.48223 2.24112 4.11612C2.24112 4.11612 2.60723 3.75 3.125 3.75H16.875C16.875 3.75 17.3928 3.75 17.7589 4.11612C17.7589 4.11612 18.125 4.48223 18.125 5V17.4062C18.125 17.4062 18.1221 17.773 17.9264 18.0774C17.9264 18.0774 17.7307 18.3817 17.4027 18.5345C17.4027 18.5345 17.0747 18.6872 16.7158 18.6411C16.7158 18.6411 16.3569 18.595 16.0781 18.3643ZM13.5548 15C13.5548 15 14.0114 15.0001 14.3574 15.2968L16.875 17.4013V5H3.125V15H13.5548Z" fill="black"/>
+                                <path d="M9.0625 10C9.0625 10.5178 9.48227 10.9375 10 10.9375C10.5177 10.9375 10.9375 10.5178 10.9375 10C10.9375 9.48223 10.5177 9.0625 10 9.0625C9.48227 9.0625 9.0625 9.48223 9.0625 10Z" fill="black"/>
+                                <path d="M12.8125 10C12.8125 10.5178 13.2323 10.9375 13.75 10.9375C14.2677 10.9375 14.6875 10.5178 14.6875 10C14.6875 9.48223 14.2677 9.0625 13.75 9.0625C13.2323 9.0625 12.8125 9.48223 12.8125 10Z" fill="black"/>
+                                <path d="M5.3125 10C5.3125 10.5178 5.73227 10.9375 6.25 10.9375C6.76773 10.9375 7.1875 10.5178 7.1875 10C7.1875 9.48223 6.76773 9.0625 6.25 9.0625C5.73227 9.0625 5.3125 9.48223 5.3125 10Z" fill="black"/>
+                            </svg>
+                            addcomment
+                        </button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script src="../../js/posts.js"></script>
+</body>
+</html>

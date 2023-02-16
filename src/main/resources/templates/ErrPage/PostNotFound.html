@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{/Layout/index}"
+      th:with="UserRegistDto = ${UserRegistDto}, isMain = false, User = ${User}">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="../../lib/VanillaCal_2.2.5/vanilla-calendar.min.js"></script>
+    <link rel="stylesheet" href="../../lib/VanillaCal_2.2.5/vanilla-calendar.min.css">
+    <link rel="stylesheet" href="../../css/posts.css">
+    <title>Document</title>
+    <script>
+        const postsDates = null;
+    </script>
+</head>
+<body>
+    <section class="section page-post"  id="section" layout:fragment="section">
+        <div class="bgc d-flex">
+            <div th:replace="/UserPage/Post.html :: postBtnGroup"></div>
+            <div class="post-view" id="postView" th:fragment="postErr">
+                <div class="w-100 h-100 h1 d-flex align-items-center justify-content-center">게시글이 아직 없습니다.</div>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../js/Vcalendar_load.js"></script>
+        <script src="../../js/posts.js"></script>
+    </section>
+</body>
+</html>

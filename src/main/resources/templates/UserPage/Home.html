@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{/Layout/index}"
+      th:with="UserRegistDto = ${UserRegistDto}, isMain = false">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PalmDiary</title>
+</head>
+<body>
+    <section class="main-sec"  id="section" layout:fragment="section">
+        <h2 class="d-none">유저 홈 화면</h2>
+        <div class="d-flex w-100 align-items-center">
+			<div class="h1">login</div>
+        </div>
+    </section>
+</body>
+</html>

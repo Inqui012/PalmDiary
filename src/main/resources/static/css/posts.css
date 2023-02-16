@@ -1,0 +1,63 @@
+.page-post {margin-top: 25px;}
+.page-post > div.bgc {border-radius: 8px; padding: 30px 20px; width: 100%; height: 100%;}
+
+/* calendar overload */
+#Vcalendar {width: 300px; height: 300px; border-radius: 8px; padding: 15px; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);}
+.vanilla-calendar-week__day,
+.vanilla-calendar-month:hover,
+.vanilla-calendar-year:hover,
+.vanilla-calendar-day__btn_today:hover,
+.vanilla-calendar-day__btn_today {color: #8A8CD9;}
+.vanilla-calendar-arrow:hover::before, 
+.vanilla-calendar-arrow:hover::after {background-color: #8A8CD9;}
+.vanilla-calendar-week__day_weekend {color: #ff7f50;}
+.vanilla-calendar-day__btn_selected,
+.vanilla-calendar-day__btn_selected:hover {background-color: #45479C; color: #ffffff;}
+
+/* bootstrap overload */
+.pagination .page-link {padding: 15px; margin-top: 10px; cursor: pointer;}
+
+/* 게시글 화면 */
+.post-btn-group > * {line-height: 1; border-radius: 8px; background-color: #ffffff; padding: 20px; width: 100%; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);}
+.post-btn-group > *:not(:first-child) {margin-top: 20px;}
+.post-btn-group .btn:hover {background-color: #8A8CD9; color: #ffffff;}
+.post-btn-group .btn:hover svg path {fill: #ffffff;}
+.post-view {width: 100%; margin-left: 20px; max-width: 1160px;}
+.post-view .btn {line-height: 1;}
+.post > li {padding: 50px 70px 20px 70px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);}
+.post > li:not(:first-child) {margin-top: 10px;}
+.post article {padding: 2rem; width: 100%;}
+
+.user-img {width: 35px; height: 35px; border-radius: 100%; margin-right: 20px;}
+.title-box {width: 100%;}
+.title-box strong {font-size: 1.5rem; width: 100%; display: block;}
+.title-box span {color: #8c8c8c; font-size: 0.8rem; white-space: nowrap;}
+
+.btn-group {margin: 15px 0;}
+.btn-group > div .btn:not(:first-of-type) {margin-left: 10px;}
+
+.comments li {background-color: #F7F9FB; border-radius: 8px; padding: 15px 30px; margin-top: 10px;}
+.comments .title-box strong {font-size: 1.2rem;}
+.comments article {padding: 1rem; width: 100%;}
+
+.post-img {width: 200px; height: 200px; margin: 0; border-radius: 8px;}
+.post-img:not(:first-child) {margin-left: 10px;}
+
+#loadMorePost {width: 100%; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); margin-top: 10px;}
+#loadMorePost:hover {box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25); margin-top: 10px;}
+#loadMorePost span {margin-right: 10px;}
+
+/* 게시글 추가 화면 */
+.post-add {width: 100%; margin-left: 20px; padding: 15px;}
+.post-add .form {padding: 50px 70px; background-color: #ffffff; border-radius: 8px; max-width: none;}
+.post-add #inputGroupFile {width: calc(100% - 140px);}
+.post-add label.btn {padding: 20px 0; width: 130px; margin-left: 10px;}
+.post-add .btn {padding: 10px 0; width: 130px; margin-left: 10px;}
+input[type=file]::-webkit-file-upload-button { display: none;}
+input[type=file]::file-selector-button { display: none;}
+input[type=file]:hover + label {background-color: #45479C; cursor: pointer;}
+label {background-color: #8A8CD9; color: #ffffff;}
+
+.img-prev {width: 100px; height: 100px; background-size: cover; border-radius: 8px; border: 1px solid #45479C; position: relative;}
+.img-prev button.btn {position: absolute; top: 0; right: 0; border-radius: 100%; background-color: #ffffff; line-height: 0; padding: 0; margin: 0; width: auto;}
+.img-prev:not(:first-child) {margin-left: 10px;}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{/Layout/index}"
+      th:with="UserRegistDto = ${UserRegistDto}, isMain = false">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PalmDiary</title>
+    <script type="text/javascript" src="../../lib/Rrule_2.7.1/rrule.min.js"></script>
+    <script type="text/javascript" src="../../lib/FulCal_6.1.1/local/index.global.min.js"></script>
+    <script type="text/javascript" src="../../lib/FulCal_6.1.1/index.global.min.js"></script>
+    <script type="text/javascript" src="../../lib/FulCal_6.1.1/rrule/index.global.min.js"></script>
+    <link rel="stylesheet" href="../../css/schedule.css">
+    <script th:inline="javascript">
+        const subListSche = [[${GroupsSche}]];
+        const subListAccn = [[${GroupsAccn}]];
+        const subListMemo = [[${GroupsMemo}]];
+        const UserEvents = [[${UserEvents}]];
+        const UserMemos = [[${UserMemos}]];
+        const OwnedUser = [[${OwnedUser}]];
+    </script>
+</head>
+<body>
+    <section class="section page-sche d-flex align-items-center" layout:fragment="section">
+        <h2 class="d-none">캘린더</h2>
+        <div class="sche-menu">
+            <div class="menu-group shce d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between">
+                	<div class="d-flex big-menu">
+	                	<button type="button" class="btn btn-toggleDrop">
+			                <svg class="icon-arrowDrop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+			                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.55806 7.07459C4.80214 6.80847 5.19786 6.80847 5.44194 7.07459L9.55806 11.5625C9.80214 11.8286 10.1979 11.8286 10.4419 11.5625L14.5581 7.07459C14.8021 6.80847 15.1979 6.80847 15.4419 7.07459C15.686 7.34072 15.686 7.77219 15.4419 8.03832L11.3258 12.5262C10.5936 13.3246 9.40641 13.3246 8.67418 12.5262L4.55806 8.03831C4.31398 7.77219 4.31398 7.34072 4.55806 7.07459Z" fill="black" fill-opacity="0.2"/>
+			                </svg>
+			            </button>
+	                    <h3 class="h4">일정</h3>                	
+                	</div>
+                    <button type="button" id="add_Shce" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#modal_groups-add" th:if="${OwnedUser}" sec:authorize="isAuthenticated()">
+                        <svg class="icon-plus" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.625 4.375C10.625 4.02982 10.3452 3.75 10 3.75C9.65482 3.75 9.375 4.02982 9.375 4.375V9.375H4.375C4.02982 9.375 3.75 9.65482 3.75 10C3.75 10.3452 4.02982 10.625 4.375 10.625H9.375V15.625C9.375 15.9702 9.65482 16.25 10 16.25C10.3452 16.25 10.625 15.9702 10.625 15.625V10.625H15.625C15.9702 10.625 16.25 10.3452 16.25 10C16.25 9.65482 15.9702 9.375 15.625 9.375H10.625V4.375Z" fill="#1C1C1C"/>
+                        </svg>
+                    </button>
+                </div>
+                <ul class="dropList d-flex flex-column">
+                    <li class="dropList-item" th:each="group : ${GroupsSche}">
+                        <div th:replace="/Frag/LoopingFrag.html :: calGroups" ></div>                
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-group accn  d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex big-menu">
+	                	<button type="button" class="btn btn-toggleDrop">
+			                <svg class="icon-arrowDrop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+			                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.55806 7.07459C4.80214 6.80847 5.19786 6.80847 5.44194 7.07459L9.55806 11.5625C9.80214 11.8286 10.1979 11.8286 10.4419 11.5625L14.5581 7.07459C14.8021 6.80847 15.1979 6.80847 15.4419 7.07459C15.686 7.34072 15.686 7.77219 15.4419 8.03832L11.3258 12.5262C10.5936 13.3246 9.40641 13.3246 8.67418 12.5262L4.55806 8.03831C4.31398 7.77219 4.31398 7.34072 4.55806 7.07459Z" fill="black" fill-opacity="0.2"/>
+			                </svg>
+			            </button>
+	                    <h3 class="h4">가계부</h3>                	
+                	</div>
+                    <button type="button" id="add_Accn" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#modal_groups-add" th:if="${OwnedUser}" sec:authorize="isAuthenticated()">
+                        <svg class="icon-plus" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.625 4.375C10.625 4.02982 10.3452 3.75 10 3.75C9.65482 3.75 9.375 4.02982 9.375 4.375V9.375H4.375C4.02982 9.375 3.75 9.65482 3.75 10C3.75 10.3452 4.02982 10.625 4.375 10.625H9.375V15.625C9.375 15.9702 9.65482 16.25 10 16.25C10.3452 16.25 10.625 15.9702 10.625 15.625V10.625H15.625C15.9702 10.625 16.25 10.3452 16.25 10C16.25 9.65482 15.9702 9.375 15.625 9.375H10.625V4.375Z" fill="#1C1C1C"/>
+                        </svg>
+                    </button>
+                </div>
+                <ul class="dropList d-flex flex-column">
+                    <li class="dropList-item" th:each="group : ${GroupsAccn}">
+                        <div th:replace="/Frag/LoopingFrag.html :: calGroups" ></div>                
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-group memo d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex big-menu">
+	                	<button type="button" class="btn btn-toggleDrop">
+			                <svg class="icon-arrowDrop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+			                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.55806 7.07459C4.80214 6.80847 5.19786 6.80847 5.44194 7.07459L9.55806 11.5625C9.80214 11.8286 10.1979 11.8286 10.4419 11.5625L14.5581 7.07459C14.8021 6.80847 15.1979 6.80847 15.4419 7.07459C15.686 7.34072 15.686 7.77219 15.4419 8.03832L11.3258 12.5262C10.5936 13.3246 9.40641 13.3246 8.67418 12.5262L4.55806 8.03831C4.31398 7.77219 4.31398 7.34072 4.55806 7.07459Z" fill="black" fill-opacity="0.2"/>
+			                </svg>
+			            </button>
+	                    <h3 class="h4">메모</h3>                	
+                	</div>
+                    <button type="button" id="add_Memo" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#modal_groups-add" th:if="${OwnedUser}" sec:authorize="isAuthenticated()">
+                        <svg class="icon-plus" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.625 4.375C10.625 4.02982 10.3452 3.75 10 3.75C9.65482 3.75 9.375 4.02982 9.375 4.375V9.375H4.375C4.02982 9.375 3.75 9.65482 3.75 10C3.75 10.3452 4.02982 10.625 4.375 10.625H9.375V15.625C9.375 15.9702 9.65482 16.25 10 16.25C10.3452 16.25 10.625 15.9702 10.625 15.625V10.625H15.625C15.9702 10.625 16.25 10.3452 16.25 10C16.25 9.65482 15.9702 9.375 15.625 9.375H10.625V4.375Z" fill="#1C1C1C"/>
+                        </svg>
+                    </button>
+                </div>
+                <ul class="dropList d-flex flex-column">
+                    <li class="dropList-item" th:each="group : ${GroupsMemo}">
+                        <div th:replace="/Frag/LoopingFrag.html :: calGroups" ></div>                
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="sche-cal" id="Fcalendar"></div>
+        <div th:replace="/Frag/Modal-Calendar.html :: calGroups-add"></div>
+        <div th:replace="/Frag/Modal-Calendar.html :: event-select"></div>
+        <div th:replace="/Frag/Modal-Calendar.html :: shce-addEdit"></div>
+	    <script src="../../js/Fcalendar_load.js"></script>
+    </section>
+</body>
+</html>

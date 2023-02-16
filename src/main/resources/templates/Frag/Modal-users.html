@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 로그인 -->
+    <div class="modal-dialog modal-dialog-centered" th:fragment="login__modal">
+        <div class="modal-content">
+            <div class="bgc modal-box modal-users d-flex flex-column align-items-center" th:fragment="login__div">
+                <div class="d-flex flex-column align-items-center">
+                    <h3>로그인</h3>
+                    <span>Login with your details</span>
+                </div>
+                <form class="form login" action="" method="post">
+                    <input class="input" type="text" name="user_id" id="user_id" placeholder="아이디">
+                    <input class="input" type="password" nameuser_pw id="user_pw" placeholder="비밀번호">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label for="rememberMe">
+                            <input type="checkbox" name="rememberMe" id="rememberMe">
+                            아이디 기억하기
+                        </label>
+                        <button type="button" class="btn btn-txt">비밀번호 찾기</button>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">로그인</button>
+                    <div class="d-flex align-items-center">
+                        <span>아직 계정이 없으신가요?</span>
+                        <button type="button" class="btn btn-txt" data-bs-toggle="modal" data-bs-target="#modal_signin">회원가입</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 회원가입 -->
+    <div class="modal-dialog modal-dialog-centered" th:fragment="regist__modal">
+        <div class="modal-content">
+            <div class="bgc modal-box modal-users d-flex flex-column align-items-center">
+                <div class="d-flex flex-column align-items-center">
+                    <h3>회원가입</h3>
+                    <span>Sign in with your details</span>
+                </div>
+                <form class="form register" method="post" th:object="${UserRegistDto}">
+                    <div>
+                        <input class="input" type="text" id="regist_id" th:field="*{registId}" placeholder="아이디">
+                        <span class="txt-err"></span>
+                    </div>
+                    <div>
+                        <input class="input" type="password" id="regist_pw" th:field="*{registPw}" placeholder="비밀번호">
+                        <span class="txt-err"></span>
+                    </div>
+                    <div class="position-relative">
+                        <input class="input" type="password" id="regist_pwConf" placeholder="비밀번호 확인">
+                        <span class="txt-err"></span>
+                        <svg width="35" height="35" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.875 12.5C21.875 17.6777 17.6777 21.875 12.5 21.875C7.32231 21.875 3.125 17.6777 3.125 12.5C3.125 7.32231 7.32231 3.125 12.5 3.125C17.6777 3.125 21.875 7.32231 21.875 12.5Z" fill="#47FF7B"/>
+                            <path d="M8.74288 12.3258C8.59752 12.1869 8.40419 12.1094 8.20312 12.1094C8.20296 12.1094 8.1854 12.1096 8.1854 12.1096C7.97826 12.1143 7.78146 12.2011 7.63831 12.3509C7.4994 12.4962 7.42188 12.6896 7.42188 12.8906L7.42208 12.9083C7.42678 13.1155 7.51357 13.3123 7.66337 13.4554L10.5247 16.1898C10.8265 16.4782 11.3017 16.4784 11.6037 16.1903L17.336 10.7217L17.3361 10.7215C17.4861 10.5785 17.573 10.3818 17.5779 10.1746C17.5782 10.1621 17.5782 10.1496 17.5779 10.1371C17.5731 9.94293 17.4962 9.75751 17.3622 9.61698C17.2147 9.46244 17.0105 9.375 16.7969 9.375L16.7748 9.37531C16.5817 9.38077 16.3974 9.4576 16.2576 9.59098L16.2574 9.59116L11.0649 14.5448L8.74288 12.3258Z" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 2.34375C12.5 2.34375 14.5658 2.34375 16.4535 3.1422C16.4535 3.1422 18.2763 3.91316 19.6816 5.31845C19.6816 5.31845 21.0868 6.72373 21.8578 8.54649C21.8578 8.54649 22.6562 10.4342 22.6562 12.5C22.6562 12.5 22.6562 14.5658 21.8578 16.4535C21.8578 16.4535 21.0868 18.2763 19.6816 19.6816C19.6816 19.6816 18.2763 21.0868 16.4535 21.8578C16.4535 21.8578 14.5658 22.6562 12.5 22.6562C12.5 22.6562 10.4342 22.6562 8.54649 21.8578C8.54649 21.8578 6.72373 21.0868 5.31845 19.6816C5.31845 19.6816 3.91316 18.2763 3.1422 16.4535C3.1422 16.4535 2.34375 14.5658 2.34375 12.5C2.34375 12.5 2.34375 10.4342 3.1422 8.54649C3.1422 8.54649 3.91316 6.72373 5.31845 5.31845C5.31845 5.31845 6.72373 3.91316 8.54649 3.1422C8.54649 3.1422 10.4342 2.34375 12.5 2.34375ZM12.5 3.90625C12.5 3.90625 10.7511 3.90625 9.15516 4.58127C9.15516 4.58127 7.61309 5.23351 6.4233 6.4233C6.4233 6.4233 5.23351 7.61309 4.58127 9.15516C4.58127 9.15516 3.90625 10.7511 3.90625 12.5C3.90625 12.5 3.90625 14.2489 4.58127 15.8448C4.58127 15.8448 5.23351 17.3869 6.4233 18.5767C6.4233 18.5767 7.61309 19.7665 9.15516 20.4187C9.15516 20.4187 10.7511 21.0938 12.5 21.0938C12.5 21.0938 14.2489 21.0938 15.8448 20.4187C15.8448 20.4187 17.3869 19.7665 18.5767 18.5767C18.5767 18.5767 19.7665 17.3869 20.4187 15.8448C20.4187 15.8448 21.0938 14.2489 21.0938 12.5C21.0938 12.5 21.0938 10.7511 20.4187 9.15516C20.4187 9.15516 19.7665 7.61309 18.5767 6.4233C18.5767 6.4233 17.3869 5.23351 15.8448 4.58127C15.8448 4.58127 14.2489 3.90625 12.5 3.90625Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <input class="input" type="text" id="regist_email" th:field="*{registEmail}" placeholder="이메일">
+                        <span class="txt-err"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">회원가입</button>
+                </form>
+            </div>  
+        </div>
+    </div>
+</body>
+</html>

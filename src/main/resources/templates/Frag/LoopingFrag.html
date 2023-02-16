@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 캘린더 화면 메뉴표시 -->
+    <th:block th:fragment="calGroups">
+        <div class="sub d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <button type="button" class="btn btn-toggleDrop" th:classappend="${#lists.isEmpty(group.childrens)} ? 'btn-visibility ' : ''">
+                    <svg class="icon-arrowDrop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.55806 7.07459C4.80214 6.80847 5.19786 6.80847 5.44194 7.07459L9.55806 11.5625C9.80214 11.8286 10.1979 11.8286 10.4419 11.5625L14.5581 7.07459C14.8021 6.80847 15.1979 6.80847 15.4419 7.07459C15.686 7.34072 15.686 7.77219 15.4419 8.03832L11.3258 12.5262C10.5936 13.3246 9.40641 13.3246 8.67418 12.5262L4.55806 8.03831C4.31398 7.77219 4.31398 7.34072 4.55806 7.07459Z" fill="black" fill-opacity="0.2"/>
+                    </svg>
+                </button>
+                <span th:text="${group.GroupsName}"></span>
+                <input type="hidden" th:value="${group.groupsId}">
+            </div>
+            <button type="button" class="btn">
+                <svg class="icon-dots btn-visibility" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.75 15C8.75 14.3096 9.30964 13.75 10 13.75C10.6904 13.75 11.25 14.3096 11.25 15C11.25 15.6904 10.6904 16.25 10 16.25C9.30964 16.25 8.75 15.6904 8.75 15Z" fill="#1C1C1C"/>
+                    <path d="M8.75 10C8.75 9.30964 9.30964 8.75 10 8.75C10.6904 8.75 11.25 9.30964 11.25 10C11.25 10.6904 10.6904 11.25 10 11.25C9.30964 11.25 8.75 10.6904 8.75 10Z" fill="#1C1C1C"/>
+                    <path d="M10 3.75C9.30964 3.75 8.75 4.30964 8.75 5C8.75 5.69036 9.30964 6.25 10 6.25C10.6904 6.25 11.25 5.69036 11.25 5C11.25 4.30964 10.6904 3.75 10 3.75Z" fill="#1C1C1C"/>
+                </svg>
+            </button>
+        </div>
+        <ul class="dropList" th:if="${!#lists.isEmpty(group.childrens)}">
+            <li class="dropList-item sub d-flex align-items-center justify-content-between" th:each="child : ${group.childrens}">
+                <span th:text="${child.GroupsName}"></span>
+                <input type="hidden" th:value="${child.groupsId}">
+                <button type="button" class="btn">
+                    <svg class="icon-dots btn-visibility" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.75 15C8.75 14.3096 9.30964 13.75 10 13.75C10.6904 13.75 11.25 14.3096 11.25 15C11.25 15.6904 10.6904 16.25 10 16.25C9.30964 16.25 8.75 15.6904 8.75 15Z" fill="#1C1C1C"/>
+                        <path d="M8.75 10C8.75 9.30964 9.30964 8.75 10 8.75C10.6904 8.75 11.25 9.30964 11.25 10C11.25 10.6904 10.6904 11.25 10 11.25C9.30964 11.25 8.75 10.6904 8.75 10Z" fill="#1C1C1C"/>
+                        <path d="M10 3.75C9.30964 3.75 8.75 4.30964 8.75 5C8.75 5.69036 9.30964 6.25 10 6.25C10.6904 6.25 11.25 5.69036 11.25 5C11.25 4.30964 10.6904 3.75 10 3.75Z" fill="#1C1C1C"/>
+                    </svg>
+                </button>
+            </li>
+        </ul>
+    </th:block>
+</body>
+</html>

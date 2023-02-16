@@ -1,0 +1,62 @@
+.section.page-sche {height: calc(100vh - 125px);}
+
+.sche-menu {width: 23%; padding: 0 20px;}
+.sche-cal {width: 77%; height: 100%;}
+.sche-menu .h4 {padding: 0.25rem 0.25rem; margin: 0; color: #8C8C8C;}
+.sub {padding: 0.5rem; margin-left: 10%;}
+.page-sche .icon-arrowDrop {transform: rotateZ(-90deg);}
+
+.menu-group .dropList .dropList-item .btn {line-height: 0;}
+.menu-group .btn.btn-toggleDrop {padding: 0 10px;}
+.dropList .dropList-item .btn:hover,
+.dropList .dropList-item .btn:active,
+.menu-group .btn.btn-toggleDrop.clicked,
+.menu-group .btn.btn-toggleDrop:hover,
+.menu-group .btn.btn-toggleDrop:active {box-shadow: none;}
+
+.menu-group > ul.dropList {height: auto;}
+.menu-group .big-menu button {display: none;}
+
+.menu-group .dropList .dropList-item .btn {width: auto; padding: 0 10px;}
+.menu-group .dropList {position: unset; width: auto; background-color: transparent; box-shadow: none; }
+.dropList-item.sub {margin-left: 3rem;}
+
+/* FullCalendar Override */
+.sche-cal .fc-button:focus,
+.sche-cal .fc-button-primary:focus,
+.sche-cal .fc-button-primary:not(:disabled).fc-button-active:focus, 
+.sche-cal .fc-button-primary:not(:disabled):active:focus {box-shadow: none; outline: none;}
+.sche-cal .fc-button.fc-button-primary {background-color: #8A8CD9; border: none; color: #ffffff; text-align: center; letter-spacing: 0.1em;}
+.sche-cal .fc-button.fc-button-primary.fc-button-active,
+.sche-cal .fc-button.fc-button-primary:hover,
+.sche-cal .fc-button.fc-button-primary:active {background-color: #45479C;}
+
+.sche-cal .fc-col-header-cell.fc-day {padding: 10px 0; background-color: #F7F9FB;}
+.sche-cal .fc-highlight {background-color: #F7F9FB;}
+
+/* modal */
+/* modal 그룹 추가 */
+.modal-box.modal-calGroups {padding: 35px 50px;}
+.modal-calGroups h3 {font-size: 1.5rem; font-weight: 500; line-height: 1.5;}
+.form.calGroups-add div:first-of-type {width: 180px; flex-wrap: wrap;}
+.form.calGroups-add div:first-of-type label {width: 25px; height: 25px; margin: 2.5px;}
+.form.calGroups-add div:first-of-type label svg:nth-child(2) {display: none;}
+.form.calGroups-add div:first-of-type input:checked + label svg:nth-child(2) {display: block;}
+
+/* modal 일정 추가 */
+.date-select > div:first-child {width: 80%;}
+.date-select input:not([type="checkbox"]):nth-child(2n) {margin-top: 20px;}
+.date-select > div:last-child {width: 20%;}
+.date-select label span {margin-left: 5px;}
+
+@media screen and (max-width: 1199.98px) {
+    .section.page-sche {flex-direction: column; height: auto;}
+    .sche-menu {width: 100%; margin-bottom: 20px;}
+    .sche-cal {width: 100%; height: 100%;}
+    .fc-header-toolbar.fc-toolbar {flex-direction: column; align-items: flex-end;}
+    .fc-header-toolbar.fc-toolbar > *:not(:nth-child(2)) {margin-bottom: 10px;}
+    .fc-header-toolbar.fc-toolbar > div:nth-child(2) {order: 1;}
+
+    .menu-group > ul.dropList {height: 0;}
+    .menu-group .big-menu button {display: block;}
+}

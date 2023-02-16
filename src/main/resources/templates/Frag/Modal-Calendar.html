@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 그룹 추가 -->
+    <div class="modal fade" id="modal_groups-add" tabindex="-1" aria-hidden="true" th:fragment="calGroups-add">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="bgc modal-box modal-calGroups d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3></h3>
+                    </div>
+                    <form class="form calGroups-add" action="" method="post">
+                        <input type="hidden" name="groups_div" id="groups_div">
+                        <select class="form-select input narrow" id="groups_st">
+                            <!-- <option value="new">새로운 상위 그룹 추가</option>
+                            그룹목록 -->
+                        </select>
+                        <input class="input" type="text" name="groups_name" id="groups_name" placeholder="새로운 그룹 이름">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- 색상 -->
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button type="reset" class="btn btn-reset align-row">취소</button>
+                            <button type="submit" class="btn btn-primary align-row ">추가</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 그룹 수정 -->
+    <div class="modal fade" id="modal_groups-edit" tabindex="-1" aria-hidden="true" th:fragment="calGroups-edit">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="bgc modal-box modal-calGroups d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3></h3>
+                    </div>
+                    <form class="form calGroups-edit" action="" method="post">
+                        <input type="hidden" name="groups_div" id="groups_div">
+                        <input class="input" type="text" name="groups_name" id="groups_name" placeholder="새로운 그룹 이름">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- 색상 -->
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button type="reset" class="btn btn-reset align-row">취소</button>
+                            <button type="submit" class="btn btn-primary align-row">추가</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 추가할 이벤트 종류 선택 -->
+    <div class="modal fade" id="modal_event-select" tabindex="-1" aria-hidden="true" th:fragment="event-select">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="bgc modal-box modal-event d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3>어떤 이벤트를 추가하시겠어요?</h3>
+                    </div>
+                    <form class="form event-select" action="" method="post">
+                        <button type="button" id="shceEvent" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modal_shce-addEdit">일정</button>
+                        <button type="button" id="accnEvent" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#">가계부</button>
+                        <button type="button" id="memoEvent" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#">메모</button>
+                        <button type="reset" class="btn btn-reset w-100">취소</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 캘린더 이벤트 추가 / 수정 -->
+    <div class="modal fade" id="modal_shce-addEdit" tabindex="-1" aria-hidden="true" th:fragment="shce-addEdit">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="bgc modal-box modal-event d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3>일정 추가</h3>
+                    </div>
+                    <form class="form shce-addEdit" action="" method="post">
+                        <input type="hidden" id="scheId">
+                        <input class="input" type="text" name="shceName" id="shceName" placeholder="새로운 일정 이름">
+                        <select class="input narrow" name="groups" id="groups">
+                        </select>
+                        <div class="d-flex justify-content-between date-select">
+                            <div class="d-flex flex-column">
+                                <!-- 시간지정 이벤트 -->
+                                <input class="input" type="datetime-local" id="strDateTime">
+                                <input class="input" type="datetime-local" id="endDateTime">
+                                <!-- 종일 이벤트-->
+                                <input class="input d-none" type="date" id="strDate">
+                                <input class="input d-none" type="date" id="endDate">
+                            </div>
+                            <div class="d-flex flex-column justify-content-around">
+                                <label class="d-flex align-items-center justify-content-center" for="isAllday">
+                                    <input type="checkbox" name="isAllday" id="isAllday">
+                                    <span>종일</span>
+                                </label>
+                                <label class="d-flex align-items-center justify-content-center" for="isReccur">
+                                    <input type="checkbox" name="isReccur" id="isReccur">
+                                    <span>반복</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-evenly reccur-select d-none">
+                            매
+                            <input class="input narrow align-row w-25" min="1" value="1" type="number" name="reccur_Interval" id="reccur_Interval">
+                            <select class="input narrow align-row w-25" name="reccur_Freq" id="reccur_Freq">
+                                <option value="DAILY">일</option>
+                                <option value="WEEKLY">주</option>
+                                <option value="MONTHLY">월</option>
+                                <option value="YEARLY">년</option>
+                            </select>
+                            마다 반복합니다.
+                        </div>
+                        <textarea class="input" type="text" name="shceDetail" id="shceDetail" placeholder="일정 상세"></textarea>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button type="reset" class="btn btn-reset align-row">취소</button>
+                            <button type="submit" class="btn btn-primary align-row">추가</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
