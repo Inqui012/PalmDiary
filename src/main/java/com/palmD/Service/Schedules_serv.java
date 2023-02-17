@@ -16,7 +16,6 @@ import com.palmD.Entity.Schedules;
 import com.palmD.Entity.Users;
 import com.palmD.Repository.CalGroups_repo;
 import com.palmD.Repository.Schedules_repo;
-import com.palmD.Repository.Users_repo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,13 +23,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Schedules_serv {
 	
+	private final Users_serv usersServ;
 	private final Schedules_repo schedulesRepo;
 	private final CalGroups_repo calGroupsRepo;
-	private final Users_repo usersRepo;
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 	
 	public Schedules addSchedule (SchedulesAddEdit_dto schedulesAddEditDto, String userId) {
-		Users currentUser = usersRepo.findById(userId).orElseThrow(EntityNotFoundException::new);
+		Users currentUser = usersServ.findUser(userId);
 		CalGroups selectedGroup = calGroupsRepo.findById(schedulesAddEditDto.getShceGroupId()).orElseThrow(() -> new EntityNotFoundException("그룹을 찾을 수 없음"));
 		Schedules schedules = Schedules.createSchedule(schedulesAddEditDto, currentUser, selectedGroup, formatter);	
 		return schedulesRepo.save(schedules);
@@ -48,7 +47,7 @@ public class Schedules_serv {
 	}
 	
 	public List<Object> callAllSchedules (String userId) {
-		Users currentUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
+		Users currentUser = usersServ.findUser(userId);
 		List<Schedules> allSchedules =  schedulesRepo.findByUserId(currentUser);
 		List<Object> calledAllEvents = new ArrayList<>();
 		for(Schedules sche : allSchedules) {

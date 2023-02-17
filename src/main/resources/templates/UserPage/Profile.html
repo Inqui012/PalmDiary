@@ -9,12 +9,105 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PalmDiary</title>
+    <link rel="stylesheet" href="../../css/profile.css">
     <script th:inline="javascript">
     </script>
 </head>
 <body>
-    <section class="section page-accn"  id="section" layout:fragment="section">
-    Profile
+    <section class="section page-accn" layout:fragment="section">
+        <div class="bgc d-flex">
+            <div class="userProf d-flex flex-column align-items-center">
+                <img th:src="${User.usersImgUrl}" th:alt="${User.usersImg}">
+                <strong class="h2" th:text="${User.usersNickname}"></strong>
+                <span th:text="${User.usersId}"></span>
+                <span>From. [[${User.regDatetime}]]</span>
+                <div th:text="${User.usersInfo}"></div>
+            </div>
+            <div class="userDetail w-100 d-flex flex-column align-items-center">
+                <h4>회원정보 수정</h4>
+                <form class="d-flex flex-column form updateDetail w-80">
+                    <div>
+                        <label for="newProfImg">프로필 이미지 변경</label>
+                        <div class="d-flex align-items-center w-100">
+                            <input type="file"class="form-control input" id="newProfImg" accept="image/*">
+                            <label class="btn btn-primary" for="newProfImg">선택</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label>별명 변경</label>
+                        <input class="input" type="text" placeholder="새로운 닉네임을 입력하세요.">
+                    </div>
+                    <div>
+                        <label>소개글 변경</label>
+                        <textarea class="input" name="" id="" cols="30" rows="10" placeholder="소개글"></textarea>
+                    </div>
+                    <div>
+                        <label>이메일 변경</label>
+                        <input class="input" type="email" placeholder="새로운 닉네임을 입력하세요.">
+                    </div>
+                    <div>
+                        <label>비밀번호 변경</label>
+                        <input class="input" type="password" placeholder="비밀번호">
+                        <input class="input" type="password" placeholder="비밀번호 확인">
+                    </div>
+                    <div class="w-100 text-end">
+                        <button class="btn btn-primary" type="submit">변경</button>
+                    </div>
+                </form>
+                <h4>데이터 삭제</h4>
+                <div class="w-80 d-flex flex-column deleteData">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>캘린더 데이터 삭제</div>
+                            <div class="gray-text">작성한 모든 일정이 삭제 됩니다.</div>
+                        </div>
+                        <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>다이어리 데이터 삭제</div>
+                            <div class="gray-text">작성한 모든 게시글이 삭제 됩니다.</div>
+                        </div>
+                        <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>할일목록 데이터 삭제</div>
+                            <div class="gray-text">작성한 모든 할일목록이 삭제 됩니다.</div>
+                        </div>
+                        <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>메모 데이터 삭제</div>
+                            <div class="gray-text">작성한 모든 메모가 삭제 됩니다.</div>
+                        </div>
+                        <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>가계부 데이터 삭제</div>
+                            <div class="gray-text">작성한 모든 가계부 내역이 삭제 됩니다.</div>
+                        </div>
+                        <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div>전체 데이터 삭제</div>
+                            <div class="gray-text">캘린더, 다이어리, 할일목록, 메모, 가계부의 모든 데이터가 삭제 됩니다.</div>
+                        </div>
+                        <button class="btn btn-primary" type="button">삭제</button>
+                    </div>
+                </div>
+                <h4>회원탈퇴</h4>
+                <div class="w-80">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>회원을 탈퇴할 경우 모든 데이터와 계정 정보가 삭제됩니다</div>
+                        <button class="btn btn-primary" type="button">회원 탈퇴</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 </html>

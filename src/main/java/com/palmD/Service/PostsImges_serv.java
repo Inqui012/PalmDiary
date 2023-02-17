@@ -1,12 +1,13 @@
 package com.palmD.Service;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import com.palmD.DTO.PostsImges_dto;
 import com.palmD.Entity.Posts;
 import com.palmD.Entity.PostsImges;
 import com.palmD.Repository.PostsImges_repo;
@@ -56,8 +57,17 @@ public class PostsImges_serv {
 				
 				editPostsImge.updatePostsImges(imgName, imgOriName, imgUrl);
 			}
-					
 		}
 	}
 	
+	public List<PostsImges_dto> findPostImgConvert (Posts post) {
+		List<PostsImges> postImgList = postsImgesRepo.findByPostIdOrderByImgId(post);
+		List<PostsImges_dto> postImgDtoList = new ArrayList<>();
+		if(!postImgList.isEmpty()) {
+			for(PostsImges img : postImgList) {
+				postImgDtoList.add(PostsImges_dto.convertFrom(img));
+			}
+		}
+		return postImgDtoList;
+	}
 }

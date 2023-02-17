@@ -3,7 +3,6 @@ package com.palmD.Controller;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.util.StringUtils;
 
@@ -83,6 +81,34 @@ public class UserPage_con {
 	public String postView (@PathVariable("usersId") String userId, Model model, Principal principal) {
 		Map<String, Object> attr = new HashMap<>();
 		Pageable pageable = PageRequest.of(0, 5);
+		String viewUserId = null;
+		if(principal == null) {
+			attr.put("UserRegistDto",  new UsersRegist_dto());
+			attr.put("OwnedUser", false);
+		} else {
+			try {
+				attr.put("User", usersServ.loadUserProfile(principal.getName()));
+			} catch (Exception e) {
+				model.addAllAttributes(attr);
+				return "ErrPage/UserNotFound";
+			}
+			if(StringUtils.equals(userId, principal.getName())) attr.put("OwnedUser", true);
+			viewUserId = principal.getName();
+		};
+		try {
+			attr.put("UserPosts", postsServ.callAllPosts(userId, pageable, viewUserId));
+			attr.put("PostsDates", postsServ.callAllPostsDates(userId));
+		} catch (Exception e) {
+			model.addAllAttributes(attr);
+			return "ErrPage/PostNotFound";
+		}
+		model.addAllAttributes(attr);
+		return "UserPage/Post";
+	}
+	
+	@GetMapping("/Profile")
+	public String profileView (@PathVariable("usersId") String userId, Model model, Principal principal) {
+		Map<String, Object> attr = new HashMap<>();
 		if(principal == null) {
 			attr.put("UserRegistDto",  new UsersRegist_dto());
 			attr.put("OwnedUser", false);
@@ -95,35 +121,7 @@ public class UserPage_con {
 			}
 			if(StringUtils.equals(userId, principal.getName())) attr.put("OwnedUser", true);
 		};
-		try {
-			attr.put("UserPosts", postsServ.callAllPosts(userId, pageable));
-			attr.put("PostsDates", postsServ.callAllPostsDates(userId));
-		} catch (Exception e) {
-			model.addAllAttributes(attr);
-			return "ErrPage/PostNotFound";
-		}
 		model.addAllAttributes(attr);
-		return "UserPage/Post";
+		return "UserPage/Profile";
 	}
-	
-//	@GetMapping("/test")
-//	public String test (@PathVariable("usersId") String userId, Optional<Integer> page, Model model, Principal principal) {
-//		Map<String, Object> attr = new HashMap<>();
-//		if(principal == null) {
-//			attr.put("UserRegistDto",  new UsersRegist_dto());
-//			attr.put("OwnedUser", false);
-//		} else {
-//			try {
-//				attr.put("User", usersServ.loadUserProfile(principal.getName()));
-//			} catch (Exception e) {
-//				model.addAllAttributes(attr);
-//				return "ErrPage/UserNotFound";
-//			}
-//			if(StringUtils.equals(userId, principal.getName())) attr.put("OwnedUser", true);
-//		};
-//		model.addAllAttributes(attr);
-//
-//		model.addAttribute("testpage", postsServ.callAllPoststest(userId, pageable));
-//		return "Testing/pageTest";
-//	}
 }

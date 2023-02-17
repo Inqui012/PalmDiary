@@ -15,7 +15,6 @@ import com.palmD.DTO.CallAllGroups_dto;
 import com.palmD.Entity.CalGroups;
 import com.palmD.Entity.Users;
 import com.palmD.Repository.CalGroups_repo;
-import com.palmD.Repository.Users_repo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class CalGroups_serv {
 	
 	private final CalGroups_repo calGroupsRepo;
-	private final Users_repo usersRepo;
+	private final Users_serv usersServ;
 	
 	public List<CalGroups> initGroups (Users findUsers) {
 		List<CalGroups> basicGroupsList = new ArrayList<>();
@@ -55,7 +54,7 @@ public class CalGroups_serv {
 	
 	@Transactional(readOnly = true)
 	public List<CallAllGroups_dto> callAllParentsGroups(String userId, GroupsDiv groupsDiv){
-		Users currentUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
+		Users currentUser = usersServ.findUser(userId);
 		List<CallAllGroups_dto> allGroupsList = new ArrayList<>();
 		List<CalGroups> allParents = calGroupsRepo.findParentsGroups(currentUser, groupsDiv);
 		for(CalGroups parents : allParents) {
@@ -85,21 +84,25 @@ public class CalGroups_serv {
 	}
 	
 	public CalGroups addGroups (CalGroupsAddEdit_dto CalGroupsAddEditdto, String userId) {
-		Users currentUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
+		Users currentUser = usersServ.findUser(userId);
 		CalGroups groupsToAdd = CalGroups.createGroup(CalGroupsAddEditdto, currentUser);
 		checkGroups(groupsToAdd, currentUser);
 		return calGroupsRepo.save(groupsToAdd);
 	}
 	
 	public CalGroups editGroups (CalGroupsAddEdit_dto CalGroupsAddEditdto) {
-		CalGroups editGroup = calGroupsRepo.findById(CalGroupsAddEditdto.getGroupId()).orElseThrow(() -> new EntityNotFoundException("그룹을 찾을 수 없음"));
+		CalGroups editGroup = findCalGroup(CalGroupsAddEditdto.getGroupId());
 		editGroup.updateGroup(CalGroupsAddEditdto);
 		return calGroupsRepo.save(editGroup);
 	}
 	
 	public void deleteGroups (Long GroupId) {
-		CalGroups deleteGroup = calGroupsRepo.findById(GroupId).orElseThrow(() -> new EntityNotFoundException("그룹을 찾을 수 없음"));
+		CalGroups deleteGroup = findCalGroup(GroupId);
 		calGroupsRepo.delete(deleteGroup);
+	}
+	
+	public CalGroups findCalGroup (Long calGroupsId) {
+		return calGroupsRepo.findById(calGroupsId).orElseThrow(() -> new EntityNotFoundException("그룹을 찾을 수 없음"));
 	}
 	
 	@Transactional(readOnly = true)

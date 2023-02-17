@@ -30,4 +30,10 @@ public class PostsBookmarks extends BaseTime implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Posts postId;
 
+	public static PostsBookmarks createBookmark (Users user, Posts post) {
+		PostsBookmarks bookmark = new PostsBookmarks();
+		bookmark.setUserId(user);
+		bookmark.setPostId(post);
+		return bookmark;
+	}
 }

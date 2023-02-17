@@ -4,11 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import com.palmD.DTO.CommentsAddEdit_dto;
 
 import lombok.*;
 

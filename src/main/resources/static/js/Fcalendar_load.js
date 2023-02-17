@@ -363,7 +363,7 @@ $('.form.shce-addEdit').on('submit', function (e) {
         cache: false,
         success: function (result, status) {
 			console.log(result);
-			// location.reload();
+			location.reload();
         },
         error: function (jqXHR, status, error) {
 			let ErrorMsg = jqXHR.responseJSON;

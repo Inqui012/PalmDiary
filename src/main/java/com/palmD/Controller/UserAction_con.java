@@ -50,7 +50,7 @@ public class UserAction_con {
 	}
 
 	@GetMapping("/delete")
-	public @ResponseBody ResponseEntity userDelete(Principal principal) {
+	public @ResponseBody ResponseEntity<String> userDelete(Principal principal) {
 		try {
 			usersServ.deleteUser(principal.getName());			
 		} catch (Exception e) {

@@ -24,6 +24,9 @@ public class PostsResp_dto {
 	private Long postsBookmarkCount;
 	private Long postsCommentsCount;
 	
+	private boolean postsLike;
+	private boolean postsBookmark;
+	
 	private List<PostsImges_dto> postsImgList = new ArrayList<>();
 	private List<CommentsResp_dto> postsCommList = new ArrayList<>();
 	

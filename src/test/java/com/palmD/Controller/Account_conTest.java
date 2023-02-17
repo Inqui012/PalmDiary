@@ -1,6 +1,5 @@
 package com.palmD.Controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -122,7 +121,7 @@ class Account_conTest {
 			dto.setAccStatus("INCOME");
 			dto.setAccDetail("NONE");
 			dto.setAccDate("2023-01-22T00:00:00");
-			Accounts acc = accountsServ.addAccount(dto, testuser.getUsersId());			
+			accountsServ.addAccount(dto, testuser.getUsersId());			
 		}
 		for(int i = 0; i < 5; i++) {
 			AccountsAddEdit_dto dto = new AccountsAddEdit_dto();
@@ -132,7 +131,7 @@ class Account_conTest {
 			dto.setAccStatus("EXPEND");
 			dto.setAccDetail("NONE");
 			dto.setAccDate("2023-01-26T00:00:00");
-			Accounts acc = accountsServ.addAccount(dto, testuser.getUsersId());			
+			accountsServ.addAccount(dto, testuser.getUsersId());			
 		}
 		for(int i = 0; i < 5; i++) {
 			AccountsAddEdit_dto dto = new AccountsAddEdit_dto();
@@ -142,7 +141,7 @@ class Account_conTest {
 			dto.setAccStatus("SAVING");
 			dto.setAccDetail("NONE");
 			dto.setAccDate("2023-01-23T00:00:00");
-			Accounts acc = accountsServ.addAccount(dto, testuser.getUsersId());			
+			accountsServ.addAccount(dto, testuser.getUsersId());			
 		}
 		
 		Map<String, List<Object[]>> test = accountsServ.callSumedAccount(testuser.getUsersId());

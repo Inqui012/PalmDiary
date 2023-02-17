@@ -24,7 +24,7 @@ public class Memo_con {
 	private final Memos_serv memosServ;
 	
 	@PostMapping("/add")
-	public @ResponseBody ResponseEntity memoAdd (@RequestBody MemosAddEdit_dto memosAddEditDto, Principal principal) {
+	public @ResponseBody ResponseEntity<String> memoAdd (@RequestBody MemosAddEdit_dto memosAddEditDto, Principal principal) {
 		try {
 			memosServ.addMemo(memosAddEditDto, principal.getName());
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class Memo_con {
 	}
 	
 	@PostMapping("/edit")
-	public @ResponseBody ResponseEntity memoEdit (@RequestBody MemosAddEdit_dto memosAddEditDto) {
+	public @ResponseBody ResponseEntity<String> memoEdit (@RequestBody MemosAddEdit_dto memosAddEditDto) {
 		try {
 			memosServ.editMemo(memosAddEditDto);
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class Memo_con {
 	}
 	
 	@PostMapping("/delete/{memoId}")
-	public @ResponseBody ResponseEntity memoDelete (@RequestParam("memoId") Long memoId) {
+	public @ResponseBody ResponseEntity<String> memoDelete (@RequestParam("memoId") Long memoId) {
 		try {
 			memosServ.deleteMemo(memoId);
 		} catch (Exception e) {

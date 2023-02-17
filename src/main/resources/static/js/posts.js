@@ -115,7 +115,7 @@ $(document).on('click', '.page-item', function () {
             targetPage: targetNum,
             userId: location.pathname.substring(1, location.pathname.lastIndexOf('/')),
         }
-        request = '/Post/loadMore';
+        request = '/Post/reload';
         $.ajax({
             url: request,
             type: 'POST',
@@ -197,29 +197,7 @@ $(document).on('submit', '.comment .form', function (e) {
         },
         cache: false,
         success: function (result, status) {
-            const targetNum = $('.page-item.active').attr('data-pagenum');
-            const pageData = {
-                targetPage: targetNum,
-                userId: location.pathname.substring(1, location.pathname.lastIndexOf('/')),
-            }
-            request = '/Post/loadMore';
-            $.ajax({
-                url: request,
-                type: 'POST',
-                dataType: 'text',
-                data: pageData,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(header, token);
-                },
-                cache: false,
-                success: function (result, status) {
-                    console.log(result);
-                    $('#postView').replaceWith(result);
-                },
-                error: function (jqXHR, status, error) {
-                    console.log(jqXHR);
-                }
-            })
+            postPageReload();
         },
         error: function (jqXHR, status, error) {
             if(jqXHR.responseText == "Need Login") alert('로그인이 필요한 서비스 입니다.')
@@ -253,14 +231,16 @@ $(document).on('click', '.btn.showComment', function () {
     }
 })
 
-// 좋아요
-$(document).on('click', '.btn.likes', function () {
-    request = '/Post/like'
+// 좋아요, 북마크
+$(document).on('click', '.btn.likes, .btn.bookmarks', function () {
+    if ($(this).hasClass('likes')) request = '/Post/like'
+    else request = '/Post/bookmark'
     const postId = $(this).parents('.postEach').children('input[name="postId"]').val();
     $.ajax({
         url: request,
         type: 'POST',
-        dataType: 'application/json',
+        // dataType: "json",
+        ContentType: 'application/json',
         data: {
             postId: postId,
         },
@@ -268,34 +248,41 @@ $(document).on('click', '.btn.likes', function () {
             xhr.setRequestHeader(header, token);
         },
         cache: false,
-        success: function () {
-            const targetNum = $('.page-item.active').attr('data-pagenum');
-            const pageData = {
-                targetPage: targetNum,
-                userId: location.pathname.substring(1, location.pathname.lastIndexOf('/')),
-            }
-            request = '/Post/loadMore';
-            $.ajax({
-                url: request,
-                type: 'POST',
-                dataType: 'text',
-                data: pageData,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader(header, token);
-                },
-                cache: false,
-                success: function (result, status) {
-                    console.log(result);
-                    $('#postView').replaceWith(result);
-                },
-                error: function (jqXHR, status, error) {
-                    console.log(jqXHR);
-                }
-            })
+        success: function (result, status) {
+            console.log(result)
+            postPageReload();
         },
         error: function (jqXHR, status, error) {
-            if(jqXHR.responseText == "Need Login") alert('로그인이 필요한 서비스 입니다.')
+            if (jqXHR.responseText == "Need Login") alert('로그인이 필요한 서비스 입니다.')
             console.log(jqXHR);
         }
     })
 })
+
+// ajax 페이지 리로드 기능
+function postPageReload() {
+    const targetNum = $('.page-item.active').attr('data-pagenum');
+    const pageData = {
+        targetPage: targetNum,
+        userId: location.pathname.substring(1, location.pathname.lastIndexOf('/')),
+    }
+    request = '/Post/reload';
+    $.ajax({
+        url: request,
+        type: 'POST',
+        // ContentType: 'application/json',
+        dataType: 'text',
+        data: pageData,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        cache: false,
+        success: function (frag) {
+            // console.log(frag);
+            $('#postView').replaceWith(frag);
+        },
+        error: function (jqXHR, status, error) {
+            console.log(jqXHR);
+        }
+    })
+}

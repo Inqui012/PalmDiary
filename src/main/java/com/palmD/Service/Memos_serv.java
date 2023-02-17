@@ -1,6 +1,5 @@
 package com.palmD.Service;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -15,7 +14,6 @@ import com.palmD.Entity.Memos;
 import com.palmD.Entity.Users;
 import com.palmD.Repository.CalGroups_repo;
 import com.palmD.Repository.Memos_repo;
-import com.palmD.Repository.Users_repo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,13 +21,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Memos_serv {
 	
+	private final Users_serv usersServ;
 	private final Memos_repo memosRepo;
 	private final CalGroups_repo calGroupsRepo;
-	private final Users_repo usersRepo;
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 	
 	public Memos addMemo (MemosAddEdit_dto memosAddEditDto, String userId) {
-		Users currentUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
+		Users currentUser = usersServ.findUser(userId);
 		CalGroups selectedGroup = calGroupsRepo.findById(memosAddEditDto.getGroupId()).orElseThrow(() -> new EntityNotFoundException("그룹을 찾을 수 없음"));
 		Memos addMemo = Memos.createMemo(memosAddEditDto, currentUser, selectedGroup, formatter);
 		return memosRepo.save(addMemo);
@@ -48,7 +46,7 @@ public class Memos_serv {
 	}
 	
 	public List<MemosResp_dto> callAllMemos (String userId) {
-		Users currentUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
+		Users currentUser = usersServ.findUser(userId);
 		List<Memos> allMemos = memosRepo.findByUserId(currentUser);
 		List<MemosResp_dto> allMemosResp = new ArrayList<>();
 		for(Memos memo : allMemos) {

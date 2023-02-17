@@ -9,15 +9,23 @@
 .navbar {padding: 0; width: 80%; margin: 0 auto; max-width: 1920px;}
 
 /* custom class */
-::placeholder {color: #8C8C8C;}
+::placeholder,
+.gray-text {color: #8C8C8C;}
 .section {width: 80%; max-width: 1920px; margin: 25px auto; min-height: calc(100vh - 125px);}
+.section > div.bgc {border-radius: 8px; padding: 30px 20px; width: 100%; height: 100%;}
 .bgc {background-color: #F7F9FB;}
 .icon-arrowDrop {transition: transform 0.5s ease-in-out;}
 .btn.btn-reset {border: 1px solid #8C8C8C; background-color: #ffffff;}
 .btn.btn-reset:hover,
 .btn.btn-reset:active {background-color: #8C8C8C; color: #ffffff;}
 .h75p {height: 75px;}
+.w-80 {width: 80% !important;}
 .btn-visibility {visibility: hidden;}
+input[type=file]::-webkit-file-upload-button { display: none;}
+input[type=file]::file-selector-button { display: none;}
+input[type=file]:hover + label {background-color: #45479C; cursor: pointer;}
+textarea {width: 100%; border-radius: 8px; border: none; outline: none; padding: 15px 30px;}
+textarea:focus {border: 1px solid #8c8c8c;}
 
 /* 모달 */
 .bgc.modal-box {border-radius: 8px; width: 100%; max-width: 550px; padding: 100px 50px;}

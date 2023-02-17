@@ -24,7 +24,7 @@ public class CalGroups_con {
 	private final CalGroups_serv groupsServ;
 	
 	@PostMapping("/add")
-	public @ResponseBody ResponseEntity groupsAdd (@RequestBody CalGroupsAddEdit_dto CalGroupsAddEditdto, Principal principal) {
+	public @ResponseBody ResponseEntity<String> groupsAdd (@RequestBody CalGroupsAddEdit_dto CalGroupsAddEditdto, Principal principal) {
 
 		try {
 			groupsServ.addGroups(CalGroupsAddEditdto, principal.getName());	
@@ -35,7 +35,7 @@ public class CalGroups_con {
 	}
 	
 	@PostMapping("/edit")
-	public @ResponseBody ResponseEntity groupsEdit (@RequestBody CalGroupsAddEdit_dto CalGroupsAddEditdto) {
+	public @ResponseBody ResponseEntity<String> groupsEdit (@RequestBody CalGroupsAddEdit_dto CalGroupsAddEditdto) {
 		try {
 			groupsServ.editGroups(CalGroupsAddEditdto);
 		} catch (Exception e) {
@@ -45,7 +45,7 @@ public class CalGroups_con {
 	}
 	
 	@PostMapping("/delete/{groupId}")
-	public @ResponseBody ResponseEntity groupsDelete (@RequestParam("groupId") Long groupId) {
+	public @ResponseBody ResponseEntity<String> groupsDelete (@RequestParam("groupId") Long groupId) {
 		try {
 			groupsServ.deleteGroups(groupId);
 		} catch (Exception e) {

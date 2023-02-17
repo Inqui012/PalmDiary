@@ -13,7 +13,7 @@ public class PostsImges_dto {
 	private String imgUrl;
 	
 	private static ModelMapper mapper = new ModelMapper();
-	public static PostsImges_dto mappedOf(PostsImges postsImges) {
+	public static PostsImges_dto convertFrom(PostsImges postsImges) {
 		return mapper.map(postsImges, PostsImges_dto.class);
 	}
 }

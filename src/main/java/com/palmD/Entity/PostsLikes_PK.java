@@ -13,10 +13,10 @@ public class PostsLikes_PK implements Serializable{
 	private String userId;
 	private Long postId;
 
-	public static PostsLikes_PK createPostsPk (Users user, Posts post) {
+	public static PostsLikes_PK createPostsPk (String userId, Long postId) {
 		PostsLikes_PK pk = new PostsLikes_PK();
-		pk.setUserId(user.getUsersId());
-		pk.setPostId(post.getPostId());
+		pk.setUserId(userId);
+		pk.setPostId(postId);
 		return pk;		
 	}
 }

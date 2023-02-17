@@ -1,5 +1,5 @@
 .page-post {margin-top: 25px;}
-.page-post > div.bgc {border-radius: 8px; padding: 30px 20px; width: 100%; height: 100%;}
+/* .page-post > div.bgc {border-radius: 8px; padding: 30px 20px; width: 100%; height: 100%;} */
 
 /* calendar overload */
 #Vcalendar {width: 300px; height: 300px; border-radius: 8px; padding: 15px; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);}
@@ -54,8 +54,6 @@
 .comment {border-radius: 8px; transition: height 0.5s ease; height: 0px; overflow: hidden; width: 100%;}
 .comment .form {margin: 0; padding: 15px; max-width: 100%;}
 .comment .form .btn.btn-primary {padding: 10px 50px; width: fit-content; margin-top: 10px;}
-.comment .form textarea {width: 100%; border-radius: 8px; border: none; outline: none; padding: 15px 30px;}
-.comment .form textarea:focus {border: 1px solid #8c8c8c;}
 .comment.commComment {background-color: #ffffff;}
 
 
@@ -65,9 +63,6 @@
 .post-add #inputGroupFile {width: calc(100% - 140px);}
 .post-add label.btn {padding: 20px 0; width: 130px; margin-left: 10px;}
 .post-add .btn {padding: 10px 0; width: 130px; margin-left: 10px;}
-input[type=file]::-webkit-file-upload-button { display: none;}
-input[type=file]::file-selector-button { display: none;}
-input[type=file]:hover + label {background-color: #45479C; cursor: pointer;}
 label {background-color: #8A8CD9; color: #ffffff;}
 
 .img-prev {width: 100px; height: 100px; background-size: cover; border-radius: 8px; border: 1px solid #45479C; position: relative;}
