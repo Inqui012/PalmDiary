@@ -101,14 +101,15 @@ public class Posts_con {
 			return new ResponseEntity<String>("Need Login", HttpStatus.BAD_REQUEST);
 		}
 		try {
-			postsLikesServ.addLikes(principal.getName(), postId);			
+			if(postsLikesServ.addLikes(principal.getName(), postId) == null) {
+				return new ResponseEntity<String>("좋아요 취소 성공", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<String>("좋아요 성공", HttpStatus.OK);				
+			}
 		} catch (EntityNotFoundException notFound) {
 			return new ResponseEntity<String>(notFound.getMessage(), HttpStatus.NOT_FOUND);
-		} catch (EntityExistsException extist) {
-			return new ResponseEntity<String>(extist.getMessage(), HttpStatus.FOUND);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<String>("좋아요 성공", HttpStatus.OK);
 	}
 }

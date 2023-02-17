@@ -27,7 +27,9 @@ public class postsLikes_serv {
 		Posts currentPost = postsRepo.findById(postId).orElseThrow(() -> new EntityNotFoundException("게시글을 찾을 수 없음"));
 		PostsLikes_PK pk = PostsLikes_PK.createPostsPk(currentUser, currentPost);
 		if(postsLikesRepo.findById(pk).isPresent()) {
-			throw new EntityExistsException("Already Exist");
+			PostsLikes existsLike = postsLikesRepo.findById(pk).orElse(null);
+			postsLikesRepo.delete(existsLike);
+			return null;
 		} else {
 			PostsLikes addLike = PostsLikes.createLike(currentUser, currentPost);			
 			return postsLikesRepo.save(addLike);

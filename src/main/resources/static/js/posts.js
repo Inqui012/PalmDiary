@@ -152,10 +152,10 @@ $(document).on('click', '.btn.addComments', function () {
 
     if (currPostComm.css('height') == '0px') {
         currPostComm.css('height', dropItemsHeight);
-        commentUl.css('height', commentUlHeight + dropItemsHeight);
+        if(!currPostComm.hasClass('postComment')) commentUl.css('height', commentUlHeight + dropItemsHeight);
     } else {
         currPostComm.css('height', 0);
-        commentUl.css('height', commentUlHeight - dropItemsHeight);
+        if(!currPostComm.hasClass('postComment')) commentUl.css('height', commentUlHeight - dropItemsHeight);
     }
 })
 
