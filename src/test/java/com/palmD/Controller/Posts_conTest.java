@@ -113,7 +113,7 @@ class Posts_conTest {
 			}
 		}
 		
-		List<PostsResp_dto> called = postsServ.callAllPosts("test");
+//		List<PostsResp_dto> called = postsServ.callAllPosts("test");
 //		System.err.println(called.get(0).getPostsBookmarkCount());
 //		System.err.println(called.get(0).getPostsLikesCount());
 //		System.err.println(called.get(0).getPostsCommList().get(0).getCommDetail());

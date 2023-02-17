@@ -41,5 +41,41 @@
             </li>
         </ul>
     </th:block>
+
+    <!-- 최상위 댓글 -->
+    <th:block th:fragment="postCommList(commentList)">
+        <ul class="commentList">
+            <li class="d-flex flex-column align-items-end" th:each="comment : ${commentList}" th:classappend="${subList} ? subComment : ''">
+                <!-- <th:block th:replace="/Frag/LoopingFrag.html :: postCommList"></th:block> -->
+                <input type="hidden" name="commId" th:value="${comment.commId}">
+                <div class="title-box d-flex align-items-center">
+                    <img class="user-img" th:src="${comment.usersImgUrl}" th:alt="${comment.usersImg}">
+                    <strong th:text="${comment.userId}">title</strong>
+                    <span th:text="${comment.regDatetime}">date</span>
+                </div>
+                <article th:text="${comment.commDetail}">
+                    content
+                </article>
+                <button class="btn addComments">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0781 18.3643L13.5523 16.253L13.5488 16.25H3.125C3.125 16.25 2.60723 16.25 2.24112 15.8839C2.24112 15.8839 1.875 15.5178 1.875 15V5C1.875 5 1.875 4.48223 2.24112 4.11612C2.24112 4.11612 2.60723 3.75 3.125 3.75H16.875C16.875 3.75 17.3928 3.75 17.7589 4.11612C17.7589 4.11612 18.125 4.48223 18.125 5V17.4062C18.125 17.4062 18.1221 17.773 17.9264 18.0774C17.9264 18.0774 17.7307 18.3817 17.4027 18.5345C17.4027 18.5345 17.0747 18.6872 16.7158 18.6411C16.7158 18.6411 16.3569 18.595 16.0781 18.3643ZM13.5548 15C13.5548 15 14.0114 15.0001 14.3574 15.2968L16.875 17.4013V5H3.125V15H13.5548Z" fill="black"/>
+                        <path d="M9.0625 10C9.0625 10.5178 9.48227 10.9375 10 10.9375C10.5177 10.9375 10.9375 10.5178 10.9375 10C10.9375 9.48223 10.5177 9.0625 10 9.0625C9.48227 9.0625 9.0625 9.48223 9.0625 10Z" fill="black"/>
+                        <path d="M12.8125 10C12.8125 10.5178 13.2323 10.9375 13.75 10.9375C14.2677 10.9375 14.6875 10.5178 14.6875 10C14.6875 9.48223 14.2677 9.0625 13.75 9.0625C13.2323 9.0625 12.8125 9.48223 12.8125 10Z" fill="black"/>
+                        <path d="M5.3125 10C5.3125 10.5178 5.73227 10.9375 6.25 10.9375C6.76773 10.9375 7.1875 10.5178 7.1875 10C7.1875 9.48223 6.76773 9.0625 6.25 9.0625C5.73227 9.0625 5.3125 9.48223 5.3125 10Z" fill="black"/>
+                    </svg>
+                </button>
+                <div class="comment commComment bgc d-flex justify-content-center">
+                    <form class="form d-flex flex-column align-items-end">
+                        <input type="hidden" name="postId">
+                        <textarea name="commentDetail" cols="30" rows="10"></textarea>
+                        <button type="submit" class="btn btn-primary">작성</button>
+                    </form>
+                </div>
+                <th:block th:if="${comment.childCommResp}" th:with="subList = true">
+                    <ul th:replace="this :: postCommList(${comment.childCommResp})"></ul>
+                </th:block>
+            </li>
+        </ul>
+    </th:block>
 </body>
 </html>

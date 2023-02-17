@@ -33,6 +33,7 @@ public class Comments_serv {
 			Comments childComment = commentsRepo.save(addComment);
 			return parentComment.appendChild(childComment); 
 		} else {			
+			System.err.println("here");
 			return commentsRepo.save(addComment);
 		}
 	}

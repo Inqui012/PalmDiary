@@ -14,5 +14,8 @@ public interface Comments_repo extends JpaRepository<Comments, Long> {
 	@Query("SELECT c FROM Comments c WHERE postId = :p AND parentCommId IS NULL ORDER BY commId")
 	List<Comments> callAllTopParentComments(@Param("p") Posts postId);
 	
+	@Query("SELECT COUNT(c) FROM Comments c WHERE postId = :p")
+	Long countAllCommentByPost(@Param("p") Posts postId);
+	
 	Long countByPostId(Posts postId);
 }

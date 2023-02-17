@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -28,6 +31,7 @@ import com.palmD.Entity.Posts;
 import com.palmD.Service.PostsImges_serv;
 import com.palmD.Service.Posts_serv;
 import com.palmD.Service.Users_serv;
+import com.palmD.Service.postsLikes_serv;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +43,7 @@ public class Posts_con {
 	private final Posts_serv postsServ;
 	private final Users_serv usersServ;
 	private final PostsImges_serv postsImgesServ;
+	private final postsLikes_serv postsLikesServ;
 	
 	@PostMapping("/toggleAdd")
 	public String replaceFrag () {
@@ -63,17 +68,13 @@ public class Posts_con {
 			if(StringUtils.equals(userId, principal.getName())) attr.put("OwnedUser", true);
 		};
 		try {
-			System.err.println("con1");
 			attr.put("UserPosts", postsServ.callAllPosts(userId, pageable));
-			System.err.println("con2");
 			attr.put("PostsDates", postsServ.callAllPostsDates(userId));
-			System.err.println("con3");
 		} catch (Exception e) {
 			model.addAllAttributes(attr);
 			return "ErrPage/PostNotFound :: postErr";
 		}
 		model.addAllAttributes(attr);
-		System.err.println("????");
 		return "UserPage/Post :: post-view";
 	}
 
@@ -90,5 +91,24 @@ public class Posts_con {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<String>("게시글 업로드 완료", HttpStatus.OK);
+	}
+	
+	@PostMapping("/like")
+	public ResponseEntity postLike (@RequestParam("postId") Long postId, Principal principal) {
+		System.err.println(principal);
+		if(principal == null) {
+			System.err.println("why");
+			return new ResponseEntity<String>("Need Login", HttpStatus.BAD_REQUEST);
+		}
+		try {
+			postsLikesServ.addLikes(principal.getName(), postId);			
+		} catch (EntityNotFoundException notFound) {
+			return new ResponseEntity<String>(notFound.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (EntityExistsException extist) {
+			return new ResponseEntity<String>(extist.getMessage(), HttpStatus.FOUND);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<String>("좋아요 성공", HttpStatus.OK);
 	}
 }

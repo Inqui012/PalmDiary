@@ -108,34 +108,8 @@ $(document).on('submit', '.post-add form.form', function (e) {
     });
 })
 
-// 게시글 더보기
-$('#loadMorePost').on('click', function () {
-    if (UserPosts.last) return false;
-    const requestParam = {
-        pageNum: UserPost.pageable.pageSize + 5,
-        userId: location.pathname.substring(0, location.pathname.lastIndexOf('/')),
-    }
-    request = '/Post/loadMore'+ userId + '/' + pageNum;
-    console.log(request)
-    $.ajax({
-        url: request,
-        type: 'POST',
-        dataType: 'json',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-        },
-        cache: false,
-        success: function (result, status) {
-            console.log(result);
-        },
-        error: function (jqXHR, status, error) {
-            console.log(jqXHR);
-        }
-    })
-})
-
-$('.page-item').each(function () {
-    $(this).on('click', function () {
+// 페이지네이션
+$(document).on('click', '.page-item', function () {
         const targetNum = $(this).attr('data-pagenum');
         const pageData = {
             targetPage: targetNum,
@@ -159,5 +133,169 @@ $('.page-item').each(function () {
                 console.log(jqXHR);
             }
         })
+})
+    
+// 댓글달기 버튼
+$(document).on('click', '.btn.addComments', function () {
+    const postLi = $(this).parents('.postEach');
+    const commentUl = postLi.children('.commentList');
+    const commentUlHeight = parseInt(commentUl.css('height'));
+    const closestParentUl = $(this).closest('ul');
+    let currPostComm;
+    let dropItemsHeight = 150;
+
+    if (closestParentUl.hasClass('post')) {
+        currPostComm = $(this).closest('li').find('.comment.postComment');
+    } else {
+        currPostComm = $(this).siblings('.comment.commComment');
+    }
+
+    if (currPostComm.css('height') == '0px') {
+        currPostComm.css('height', dropItemsHeight);
+        commentUl.css('height', commentUlHeight + dropItemsHeight);
+    } else {
+        currPostComm.css('height', 0);
+        commentUl.css('height', commentUlHeight - dropItemsHeight);
+    }
+})
+
+// 댓글 작성
+$(document).on('submit', '.comment .form', function (e) {
+    e.preventDefault();
+    const closestParentUl = $(this).closest('ul');
+    let postId = $(this).parents('li').find('input[name="postId"]').val();
+    let currComm = $(this).closest('li').find('.comment.postComment');
+    let parentCommId = -1;
+    let commId = null;
+    if (!closestParentUl.hasClass('post')) {
+        currComm = $(this).closest('li').find('.comment.commComment');
+        parentCommId = $(this).closest('li').find('input[name="commId"]').val();
+    } 
+    let commentDetail = currComm.find('textarea[name="commentDetail"]').val();
+    if (commentDetail == '') {
+        alert('댓글 내용을 입력해 주세요');
+        return false;
+    }
+
+    if (commId == null) request = '/Comment/add'
+    else request = '/Comment/edit'
+
+    data = {
+        commId: commId,
+        postId: postId,
+        parentCommId: parentCommId,
+        commDetail: commentDetail,
+    }
+    const newCommentData = JSON.stringify(data);
+    $.ajax({
+        url: request,
+        type: 'POST',
+        contentType: 'application/json',
+        data: newCommentData,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        cache: false,
+        success: function (result, status) {
+            const targetNum = $('.page-item.active').attr('data-pagenum');
+            const pageData = {
+                targetPage: targetNum,
+                userId: location.pathname.substring(1, location.pathname.lastIndexOf('/')),
+            }
+            request = '/Post/loadMore';
+            $.ajax({
+                url: request,
+                type: 'POST',
+                dataType: 'text',
+                data: pageData,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                cache: false,
+                success: function (result, status) {
+                    console.log(result);
+                    $('#postView').replaceWith(result);
+                },
+                error: function (jqXHR, status, error) {
+                    console.log(jqXHR);
+                }
+            })
+        },
+        error: function (jqXHR, status, error) {
+            if(jqXHR.responseText == "Need Login") alert('로그인이 필요한 서비스 입니다.')
+            console.log(jqXHR);
+        }
+    })
+})
+
+// 댓글보기
+$(document).on('click', '.btn.showComment', function () {
+    const parent = $(this).closest('li');
+    const dropmenu = parent.children('.commentList');
+    const arrowDown = $(this).children('.icon-arrowDrop');
+
+    // 화살표 회전 
+	if (arrowDown.css('transform') == 'matrix(0, 1, -1, 0, 0, 0)') {
+		arrowDown.css('transform', 'rotateZ(0deg)');
+	} else {
+		arrowDown.css('transform','rotateZ(90deg)');
+    }
+
+	// transition 을 위해 드롭다운 메뉴 내용물 총 크기에 따라서 부모 높이 지정.
+    let dropItemsHeight = 0;
+    dropmenu.children().each(function () {
+        dropItemsHeight += $(this).outerHeight(true);
+    });
+    if (dropmenu.css('height') == '0px') {
+        dropmenu.css('height', dropItemsHeight);
+    } else {
+        dropmenu.css('height', 0);
+    }
+})
+
+// 좋아요
+$(document).on('click', '.btn.likes', function () {
+    request = '/Post/like'
+    const postId = $(this).parents('.postEach').children('input[name="postId"]').val();
+    $.ajax({
+        url: request,
+        type: 'POST',
+        dataType: 'application/json',
+        data: {
+            postId: postId,
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        cache: false,
+        success: function () {
+            const targetNum = $('.page-item.active').attr('data-pagenum');
+            const pageData = {
+                targetPage: targetNum,
+                userId: location.pathname.substring(1, location.pathname.lastIndexOf('/')),
+            }
+            request = '/Post/loadMore';
+            $.ajax({
+                url: request,
+                type: 'POST',
+                dataType: 'text',
+                data: pageData,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                cache: false,
+                success: function (result, status) {
+                    console.log(result);
+                    $('#postView').replaceWith(result);
+                },
+                error: function (jqXHR, status, error) {
+                    console.log(jqXHR);
+                }
+            })
+        },
+        error: function (jqXHR, status, error) {
+            if(jqXHR.responseText == "Need Login") alert('로그인이 필요한 서비스 입니다.')
+            console.log(jqXHR);
+        }
     })
 })

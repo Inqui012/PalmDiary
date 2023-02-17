@@ -29,4 +29,11 @@ public class PostsLikes extends BaseTime implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Posts postId;
+	
+	public static PostsLikes createLike (Users user, Posts post) {
+		PostsLikes like = new PostsLikes();
+		like.setUserId(user);
+		like.setPostId(post);
+		return like;
+	}
 }

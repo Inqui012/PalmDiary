@@ -35,17 +35,29 @@
 
 .btn-group {margin: 15px 0;}
 .btn-group > div .btn:not(:first-of-type) {margin-left: 10px;}
+.btn-group .btn.btn-toggleDrop {padding: 0;}
 
-.comments li {background-color: #F7F9FB; border-radius: 8px; padding: 15px 30px; margin-top: 10px;}
-.comments .title-box strong {font-size: 1.2rem;}
-.comments article {padding: 1rem; width: 100%;}
+.post > li > ul.commentList {height: 0px; overflow: hidden;}
+.commentList {width: 100%; transition: height 0.5s ease;}
+.commentList li {background-color: #F7F9FB; border-radius: 8px; padding: 15px 30px; margin-top: 10px;}
+.commentList li.subComment {padding-right: 0;}
+.commentList .title-box strong {font-size: 1.2rem;}
+.commentList article {padding: 1rem; width: 100%;}
 
-.post-img {width: 200px; height: 200px; margin: 0; border-radius: 8px;}
-.post-img:not(:first-child) {margin-left: 10px;}
+.post-img img {width: 20%; max-width: 200px; height: 200px; margin: 0; border-radius: 8px;}
+.post-img img:not(:first-child) {margin-left: 10px;}
 
 #loadMorePost {width: 100%; padding: 20px; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25); margin-top: 10px;}
 #loadMorePost:hover {box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25); margin-top: 10px;}
 #loadMorePost span {margin-right: 10px;}
+
+.comment {border-radius: 8px; transition: height 0.5s ease; height: 0px; overflow: hidden; width: 100%;}
+.comment .form {margin: 0; padding: 15px; max-width: 100%;}
+.comment .form .btn.btn-primary {padding: 10px 50px; width: fit-content; margin-top: 10px;}
+.comment .form textarea {width: 100%; border-radius: 8px; border: none; outline: none; padding: 15px 30px;}
+.comment .form textarea:focus {border: 1px solid #8c8c8c;}
+.comment.commComment {background-color: #ffffff;}
+
 
 /* 게시글 추가 화면 */
 .post-add {width: 100%; margin-left: 20px; padding: 15px;}
@@ -61,3 +73,9 @@ label {background-color: #8A8CD9; color: #ffffff;}
 .img-prev {width: 100px; height: 100px; background-size: cover; border-radius: 8px; border: 1px solid #45479C; position: relative;}
 .img-prev button.btn {position: absolute; top: 0; right: 0; border-radius: 100%; background-color: #ffffff; line-height: 0; padding: 0; margin: 0; width: auto;}
 .img-prev:not(:first-child) {margin-left: 10px;}
+
+@media screen and (max-width: 991.98px) {
+    #Vcalendar {width: 150px;}
+    .post-img {overflow: hidden;}
+    .post-img img {width: 20%; height: 50px; margin: 0; border-radius: 8px;}
+}

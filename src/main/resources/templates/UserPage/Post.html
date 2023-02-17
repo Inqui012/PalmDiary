@@ -22,7 +22,7 @@
         <div class="bgc d-flex">
             <div class="post-btn-group" th:fragment="postBtnGroup">
                 <div id="Vcalendar"></div>
-                <button class="btn d-flex align-items-center justify-content-between" id="addPost">
+                <button class="btn d-flex align-items-center justify-content-between" id="addPost" th:if="${OwnedUser}">
                     <span>새로운 글 추가</span>
                     <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M8.84324 19.3024C8.51059 18.9973 8.51059 18.5027 8.84324 18.1976L14.4531 13.0524C14.7858 12.7473 14.7858 12.2527 14.4531 11.9476L8.84324 6.80243C8.51059 6.49733 8.51059 6.00267 8.84324 5.69757C9.1759 5.39248 9.71524 5.39248 10.0479 5.69757L15.6578 10.8427C16.6557 11.758 16.6557 13.242 15.6578 14.1573L10.0479 19.3024C9.71524 19.6075 9.1759 19.6075 8.84324 19.3024Z" fill="black"/>
@@ -46,7 +46,8 @@
             </div>
             <div class="post-view" id="postView" th:fragment="post-view">
                 <ul class="post d-flex flex-column">
-                    <li th:each="post : ${UserPosts}">
+                    <li class="postEach" th:each="post : ${UserPosts}">
+                        <input type="hidden" name="postId" th:value="${post.postId}">
                         <div class="title-box d-flex align-items-center">
                             <img class="user-img" th:src="${post.usersImgUrl}" th:alt="${post.usersImg}">
                             <strong th:text="${post.postTitle}">title</strong>
@@ -55,15 +56,15 @@
                         <article th:text="${post.postDetail}">
                             content
                         </article>
-                        <div class="d-flex" th:if="${!#lists.isEmpty(post.postsImgList)}">
-                            <img th:src="${img.imgUrl}" class="d-block post-img object-fit-cover float-none" alt="..." th:each="img : ${post.postsImgList}">
+                        <div class="d-flex post-img" th:if="${!#lists.isEmpty(post.postsImgList)}">
+                            <img th:src="${img.imgUrl}" class="d-block object-fit-cover float-none" alt="..." th:each="img : ${post.postsImgList}">
                         </div>
                         <div class="btn-group d-flex align-items-center justify-content-between">
-                            <button class="btn d-flex align-items-center" th:classappend="${post.postsCommList} ? 'btn-visibility ' : ''">
+                            <button class="btn showComment d-flex align-items-center" th:classappend="${#lists.isEmpty(post.postsCommList)} ? 'btn-visibility ' : ''">
                                 <svg class="icon-arrowDrop" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M7.07459 15.4419C6.80847 15.1979 6.80847 14.8021 7.07459 14.5581L11.5625 10.4419C11.8286 10.1979 11.8286 9.80214 11.5625 9.55806L7.07459 5.44194C6.80847 5.19786 6.80847 4.80214 7.07459 4.55806C7.34072 4.31398 7.77219 4.31398 8.03831 4.55806L12.5262 8.67418C13.3246 9.40641 13.3246 10.5936 12.5262 11.3258L8.03831 15.4419C7.77219 15.686 7.34072 15.686 7.07459 15.4419Z" fill="#4A4B78"/>
                                 </svg>
-                                <span th:text="답글보기 + ${post.postsLikesCount}"></span>
+                                <span>답글보기 ([[${post.postsCommentsCount}]])</span>
                             </button>
                             <div class="d-flex align-items-center">
                                 <button class="btn likes d-flex align-items-center">
@@ -95,27 +96,14 @@
                                 </button>
                             </div>
                         </div>
-                        <ul class="comments" th:if="${post.postsCommList}">
-                            <li class="d-flex flex-column align-items-end" th:each="topComment : ${post.postsCommList}">
-                                <div class="title-box d-flex align-items-center">
-                                    <img class="user-img" src="https://4.bp.blogspot.com/-CfSVFwYqpkQ/VCIkGwECcHI/AAAAAAAAmjs/Iksw2cv-43s/s800/monster04.png" alt="">
-                                    <strong th:text="${topComment.userId.getUsersNickname()}">title</strong>
-                                    <span th:text="${topComment.regDatetime}">date</span>
-                                </div>
-                                <article th:text="${topComment.commDetail}">
-                                    content
-                                </article>
-                                <button class="btn addComments">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M16.0781 18.3643L13.5523 16.253L13.5488 16.25H3.125C3.125 16.25 2.60723 16.25 2.24112 15.8839C2.24112 15.8839 1.875 15.5178 1.875 15V5C1.875 5 1.875 4.48223 2.24112 4.11612C2.24112 4.11612 2.60723 3.75 3.125 3.75H16.875C16.875 3.75 17.3928 3.75 17.7589 4.11612C17.7589 4.11612 18.125 4.48223 18.125 5V17.4062C18.125 17.4062 18.1221 17.773 17.9264 18.0774C17.9264 18.0774 17.7307 18.3817 17.4027 18.5345C17.4027 18.5345 17.0747 18.6872 16.7158 18.6411C16.7158 18.6411 16.3569 18.595 16.0781 18.3643ZM13.5548 15C13.5548 15 14.0114 15.0001 14.3574 15.2968L16.875 17.4013V5H3.125V15H13.5548Z" fill="black"/>
-                                        <path d="M9.0625 10C9.0625 10.5178 9.48227 10.9375 10 10.9375C10.5177 10.9375 10.9375 10.5178 10.9375 10C10.9375 9.48223 10.5177 9.0625 10 9.0625C9.48227 9.0625 9.0625 9.48223 9.0625 10Z" fill="black"/>
-                                        <path d="M12.8125 10C12.8125 10.5178 13.2323 10.9375 13.75 10.9375C14.2677 10.9375 14.6875 10.5178 14.6875 10C14.6875 9.48223 14.2677 9.0625 13.75 9.0625C13.2323 9.0625 12.8125 9.48223 12.8125 10Z" fill="black"/>
-                                        <path d="M5.3125 10C5.3125 10.5178 5.73227 10.9375 6.25 10.9375C6.76773 10.9375 7.1875 10.5178 7.1875 10C7.1875 9.48223 6.76773 9.0625 6.25 9.0625C5.73227 9.0625 5.3125 9.48223 5.3125 10Z" fill="black"/>
-                                    </svg>
-                                    addcomment
-                                </button>
-                            </li>
-                        </ul>
+                        <div class="comment postComment bgc d-flex justify-content-center">
+                            <form class="form d-flex flex-column align-items-end">
+                                <input type="hidden" name="postId">
+                                <textarea name="commentDetail" cols="30" rows="10"></textarea>
+                                <button type="submit" class="btn btn-primary">작성</button>
+                            </form>
+                        </div>
+                        <ul th:if="${post.postsCommList}" th:replace="/Frag/LoopingFrag.html :: postCommList(${post.postsCommList})"></ul>
                     </li>
                 </ul>
                 <nav aria-label="Page navigation">
@@ -141,7 +129,6 @@
                     </svg>
                 </button> -->
             </div>
-            <!-- <div th:replace="/Frag/PostsFrag.html :: post-addEdit"></div> -->
         </div>
         <script type="text/javascript" src="../../js/Vcalendar_load.js"></script>
         <script src="../../js/posts.js"></script>

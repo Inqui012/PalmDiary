@@ -56,40 +56,36 @@ public class Posts_serv {
 		postsRepo.delete(deletePost);
 	}
 	
-	public List<PostsResp_dto> callAllPosts (String userId) {
-		Users requestedUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
-		List<Posts> allPosts = postsRepo.findByUserIdOrderByRegDatetimeDesc(requestedUser);
-		if(allPosts.isEmpty()) throw new EntityNotFoundException("게시글이 존재하지 않습니다.");
-		List<PostsResp_dto> callAllPostsDto = new ArrayList<>();
-		for(Posts post : allPosts) {
-			PostsResp_dto respPost = PostsResp_dto.mappedOf(post, requestedUser);
-			List<PostsImges> allImges = postsImgesRepo.findByPostIdOrderByImgId(post);
-			for(PostsImges img : allImges) {
-				PostsImges_dto postImgesDto = PostsImges_dto.mappedOf(img);
-				respPost.getPostsImgList().add(postImgesDto);
-			}
-			List<Comments> allTopParentComments = commentsRepo.callAllTopParentComments(post);
-			for(Comments comm : allTopParentComments) {
-				CommentsResp_dto commentsRespDto = CommentsResp_dto.mappedOf(comm);
-				respPost.getPostsCommList().add(commentsRespDto);
-			}
-			respPost.setPostsLikesCount(postsLikesRepo.countByPostId(post));
-			respPost.setPostsBookmarkCount(postsBookmarksRepo.countByPostId(post));
-			respPost.setPostsCommentsCount(commentsRepo.countByPostId(post));
-			callAllPostsDto.add(respPost);
-		}
-		
-		return callAllPostsDto;
-	}
+//	public List<PostsResp_dto> callAllPosts (String userId) {
+//		Users requestedUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
+//		List<Posts> allPosts = postsRepo.findByUserIdOrderByRegDatetimeDesc(requestedUser);
+//		if(allPosts.isEmpty()) throw new EntityNotFoundException("게시글이 존재하지 않습니다.");
+//		List<PostsResp_dto> callAllPostsDto = new ArrayList<>();
+//		for(Posts post : allPosts) {
+//			PostsResp_dto respPost = PostsResp_dto.mappedOf(post, requestedUser);
+//			List<PostsImges> allImges = postsImgesRepo.findByPostIdOrderByImgId(post);
+//			for(PostsImges img : allImges) {
+//				PostsImges_dto postImgesDto = PostsImges_dto.mappedOf(img);
+//				respPost.getPostsImgList().add(postImgesDto);
+//			}
+//			List<Comments> allTopParentComments = commentsRepo.callAllTopParentComments(post);
+//			for(Comments comm : allTopParentComments) {
+//				CommentsResp_dto commentsRespDto = CommentsResp_dto.mappedOf(comm);
+//				respPost.getPostsCommList().add(commentsRespDto);
+//			}
+//			respPost.setPostsLikesCount(postsLikesRepo.countByPostId(post));
+//			respPost.setPostsBookmarkCount(postsBookmarksRepo.countByPostId(post));
+//			respPost.setPostsCommentsCount(commentsRepo.countByPostId(post));
+//			callAllPostsDto.add(respPost);
+//		}
+//		
+//		return callAllPostsDto;
+//	}
 	
 	public Page<PostsResp_dto> callAllPosts (String userId, Pageable pageable) {
-		System.err.println("sev1");
 		Users requestedUser = usersRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없음"));
-		System.err.println("sev2");
 		List<Posts> allPosts = postsRepo.findByUserIdOrderByRegDatetimeDesc(requestedUser, pageable);
-		System.err.println("sev3");
 		Long totalCount = postsRepo.countByUserId(requestedUser);
-		System.err.println("sev4");
 		if(allPosts.isEmpty()) throw new EntityNotFoundException("게시글이 존재하지 않습니다.");
 		List<PostsResp_dto> callAllPostsDto = new ArrayList<>();
 		for(Posts post : allPosts) {
@@ -101,7 +97,7 @@ public class Posts_serv {
 			}
 			List<Comments> allTopParentComments = commentsRepo.callAllTopParentComments(post);
 			for(Comments comm : allTopParentComments) {
-				CommentsResp_dto commentsRespDto = CommentsResp_dto.mappedOf(comm);
+				CommentsResp_dto commentsRespDto = CommentsResp_dto.convertFrom(comm);
 				respPost.getPostsCommList().add(commentsRespDto);
 			}
 			respPost.setPostsLikesCount(postsLikesRepo.countByPostId(post));
