@@ -1,4 +1,4 @@
-.section.page-main {width: 100%; max-width: none;}
+.section.page-main {width: 100%; max-width: none; max-height: calc(100% - 75px); height: 100%; margin: 0;}
 
 .main-left {background-image: url('/palmD/BookPile.avif'); background-size: cover; height: 100%; width: 50%;}
 .main-left::after {background-color: black; opacity: 0.5; content: ''; width: 100%; height: 100%; display: block;}
