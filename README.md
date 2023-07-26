@@ -24,3 +24,9 @@
 
 ## ERD 설계
 ![CalendarDiary](https://github.com/Inqui012/PalmDiary/assets/20105677/d8ad6e38-6459-4735-9498-31c7308cbbab)
+
+## 화면구성
+![localhost_](https://github.com/Inqui012/PalmDiary/assets/20105677/8fc0a528-992d-4193-b464-39bef2324dd4)
+![localhost_admin_Schedule](https://github.com/Inqui012/PalmDiary/assets/20105677/8b79c47a-5068-4ede-aa42-c2fea8378e93)
+![localhost_admin_Post](https://github.com/Inqui012/PalmDiary/assets/20105677/8d8ae280-4062-4c89-af34-2dc6f1082102)
+![localhost_admin_Profile](https://github.com/Inqui012/PalmDiary/assets/20105677/dfca62d6-b03f-442a-9a84-c4388fae3f5e)
