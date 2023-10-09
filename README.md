@@ -22,6 +22,9 @@
  * [FullCalendar API](https://fullcalendar.io/)
  * [Vanilla Calendar API](https://vanilla-calendar.com/)
 
+## 상세
+![포트폴리오_-_개인_PD_page-0001](https://github.com/Inqui012/PalmDiary/assets/20105677/dac16564-1a54-4d30-84c5-10db6c5bb3ef)
+
 ## ERD 설계
 ![CalendarDiary](https://github.com/Inqui012/PalmDiary/assets/20105677/d8ad6e38-6459-4735-9498-31c7308cbbab)
 
